@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - My E-commerce Store</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+</head>
+<body onload="checkAuthentication()">
+    <header>
+        <h1>My E-commerce Store</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="user_profile.html" id="profile-link">Profile</a></li>
+                <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="orders">
+        <h2>Your Orders</h2>
+        <div id="order-items">
+            <p>Your order list is empty.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 My E-commerce Store</p>
+    </footer>
+
+    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script src="orders.js"></script> <!-- Link to the orders-specific JavaScript file -->
+</body>
+</html>

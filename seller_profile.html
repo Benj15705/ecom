@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Profile - My E-commerce Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="checkAuthentication()">
+    <header>
+        <h1>My E-commerce Store</h1>
+        <nav>
+            <ul>
+                <li><a href="seller_homepage.html">Home</a></li>
+                <li><a href="seller_products.html">Manage Products</a></li>
+                <li><a href="seller_profile.html" id="profile-link">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="profile">
+        <h2>Seller Profile</h2>
+        <p>Welcome, <span id="username"></span>!</p>
+        <button id="logout-button">Logout</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 My E-commerce Store</p>
+    </footer>
+
+    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script>
+        // Check if the seller is logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInSeller = localStorage.getItem('loggedInSeller');
+            const usernameElement = document.getElementById('username');
+            const logoutButton = document.getElementById('logout-button');
+
+            if (loggedInSeller) {
+                usernameElement.textContent = loggedInSeller;
+                logoutButton.addEventListener('click', () => {
+                    localStorage.removeItem('loggedInSeller');
+                    window.location.href = 'seller_login.html'; // Redirect to login page
+                });
+            } else {
+                window.location.href = 'seller_login.html'; // Redirect to login page if not logged in
+            }
+        });
+    </script>
+</body>
+</html>

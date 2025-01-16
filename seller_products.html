@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - My E-commerce Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="checkAuthentication()">
+    <header>
+        <h1>My E-commerce Store</h1>
+        <nav>
+            <ul>
+                <li><a href="seller_homepage.html">Home</a></li>
+                <li><a href="seller_products.html">Manage Products</a></li>
+                <li><a href="chat_with_customer.html">Chat with Customer</a></li>
+                <li><a href="seller_profile.html" id="profile-link">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="manage-products">
+        <h2>Manage Products</h2>
+        <div class="tabs">
+            <button class="tab-button" onclick="openTab(event, 'product-list-tab')">Product List</button>
+            <button class="tab-button" onclick="openTab(event, 'add-product-tab')">Add Product</button>
+        </div>
+        <div id="product-list-tab" class="tab-content">
+            <div id="product-list">
+                <!-- Product items will be dynamically inserted here -->
+            </div>
+        </div>
+        <div id="add-product-tab" class="tab-content" style="display:none;">
+            <form id="product-form">
+                <label for="product-name">Product Name:</label>
+                <input type="text" id="product-name" required>
+                <label for="product-price">Price:</label>
+                <input type="number" id="product-price" required>
+                <label for="product-description">Description:</label>
+                <textarea id="product-description" required></textarea>
+                <label for="product-image">Image:</label>
+                <input type="file" id="product-image" accept="image/*" required>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 My E-commerce Store</p>
+    </footer>
+    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script src="seller_products.js"></script> <!-- Link to the products-specific JavaScript file -->
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+            document.getElementById(tabName).style.display = 'block';
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+</body>
+</html>

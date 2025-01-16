@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Seller - My E-commerce Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="checkAuthentication()">
+    <header>
+        <h1>My E-commerce Store</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="user_profile.html" id="profile-link">Profile</a></li>
+                <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
+                <li><a href="chat_with_seller.html">Chat with Seller</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="chatroom">
+        <h2>Chat with Seller</h2>
+        <div id="chat-container">
+            <div id="chat-box">
+                <div id="chat-messages">
+                    <!-- Messages will be displayed here -->
+                </div>
+                <form id="chat-form">
+                    <input type="text" id="chat-input" placeholder="Type a message..." required>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+            <div id="user-list">
+                <h3>Sellers</h3>
+                <ul id="users">
+                    <!-- User list will be populated here -->
+                </ul>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 My E-commerce Store</p>
+    </footer>
+    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script src="chat_with_seller.js"></script> <!-- Link to the chat-specific JavaScript file -->
+</body>
+</html>
