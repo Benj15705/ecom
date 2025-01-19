@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - My E-commerce Store</title>
+    <title>Profile - MarketPlus</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
 </head>
 <body onload="checkAuthentication()">
     <header>
-        <h1>My E-commerce Store</h1>
+        <h1>
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+                MarketPlus
+            </a>
+        </h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -26,7 +31,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2025 My E-commerce Store</p>
+        <p>&copy; 2025 MarketPlus</p>
     </footer>
 
     <script src="script.js"></script> <!-- Link to the main JavaScript file -->
@@ -41,10 +46,10 @@
                 usernameElement.textContent = loggedInUser;
                 logoutButton.addEventListener('click', () => {
                     localStorage.removeItem('loggedInUser');
-                    window.location.href = 'login.html'; // Redirect to login page
+                    window.location.href = 'user_login.html'; // Redirect to login page
                 });
             } else {
-                window.location.href = 'login.html'; // Redirect to login page if not logged in
+                window.location.href = 'user_login.html'; // Redirect to login page if not logged in
             }
         });
     </script>
