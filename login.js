@@ -1,38 +1,45 @@
 // login.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    const userLoginForm = document.getElementById('user-login-form');
-    const sellerLoginForm = document.getElementById('seller-login-form');
+    const loginForm = document.getElementById('login-form');
 
-    userLoginForm.addEventListener('submit', (event) => {
+    loginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const username = document.getElementById('user-username').value;
-        const password = document.getElementById('user-password').value;
 
-        // Validate user credentials (this is a placeholder; replace with real validation)
-        const storedPassword = localStorage.getItem('user_' + username);
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
 
-        if (storedPassword && storedPassword === password) {
-            localStorage.setItem('loggedInUser', username); // Store the logged-in user
-            window.location.href = 'index.html'; // Redirect to homepage
-        } else {
-            alert('Invalid username or password.');
-        }
-    });
+        if (username && password) {
+            try {
+                const response = await fetch('http://localhost:5000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
 
-    sellerLoginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const username = document.getElementById('seller-username').value;
-        const password = document.getElementById('seller-password').value;
+                const data = await response.json();
 
-        // Validate seller credentials (this is a placeholder; replace with real validation)
-        const storedPassword = localStorage.getItem('seller_' + username);
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('loggedInUser', username);
+                    localStorage.setItem('userRole', data.role);
 
-        if (storedPassword && storedPassword === password) {
-            localStorage.setItem('loggedInSeller', username); // Store the logged-in seller
-            window.location.href = 'seller_profile.html'; // Redirect to seller profile page
-        } else {
-            alert('Invalid username or password.');
+                    if (data.role === 'owner') {
+                        window.location.href = 'owner_dashboard.html';
+                    } else if (data.role === 'seller') {
+                        window.location.href = 'seller_homepage.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
         }
     });
 });

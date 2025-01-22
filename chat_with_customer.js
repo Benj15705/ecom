@@ -1,4 +1,5 @@
 // chat_with_customer.js
+
 document.addEventListener('DOMContentLoaded', () => {
     const chatForm = document.getElementById('chat-form');
     const chatInput = document.getElementById('chat-input');
@@ -11,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'seller_login.html';
         return;
     }
+
+    const socket = io('http://localhost:5000');
+    socket.emit('join', { username: loggedInSeller });
 
     let currentUser = null;
     const users = ['User1', 'User2', 'User3']; // Example user list
@@ -31,33 +35,32 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const message = chatInput.value.trim();
         if (message && currentUser) {
-            addMessage(currentUser, loggedInSeller, message);
+            socket.emit('sendMessage', { sender: loggedInSeller, receiver: currentUser, message });
+            addMessage(loggedInSeller, message);
             chatInput.value = '';
         }
     });
 
-    function addMessage(user, sender, text) {
+    socket.on('receiveMessage', ({ sender, message, timestamp }) => {
+        if (sender === currentUser) {
+            addMessage(sender, message, timestamp);
+        }
+    });
+
+    function addMessage(sender, text, timestamp = new Date()) {
         const messageElement = document.createElement('div');
         messageElement.className = 'chat-message';
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${text}`;
+        messageElement.innerHTML = `<strong>${sender}:</strong> ${text} <span class="timestamp">${new Date(timestamp).toLocaleTimeString()}</span>`;
         chatMessages.appendChild(messageElement);
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
-
-        // Save message to localStorage
-        const chatHistory = JSON.parse(localStorage.getItem(`chat_${user}`)) || [];
-        chatHistory.push({ sender, text });
-        localStorage.setItem(`chat_${user}`, JSON.stringify(chatHistory));
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    function loadChatMessages(user) {
+    async function loadChatMessages(user) {
         chatMessages.innerHTML = ''; // Clear current messages
-        const chatHistory = JSON.parse(localStorage.getItem(`chat_${user}`)) || [];
+        const response = await fetch(`http://localhost:5000/chat/${loggedInSeller}/${user}`);
+        const chatHistory = await response.json();
         chatHistory.forEach(message => {
-            const messageElement = document.createElement('div');
-            messageElement.className = 'chat-message';
-            messageElement.innerHTML = `<strong>${message.sender}:</strong> ${message.text}`;
-            chatMessages.appendChild(messageElement);
+            addMessage(message.sender, message.message, message.timestamp);
         });
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to the bottom
     }
 });

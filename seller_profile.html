@@ -9,17 +9,28 @@
 <body onload="checkAuthentication()">
     <header>
         <h1>
-            <a href="index.html" class="logo">
+            <a href="seller_homepage.html" class="logo">
                 <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
                 MarketPlus
             </a>
         </h1>
         <nav>
             <ul>
-                <li><a href="seller_homepage.html">Home</a></li>
-                <li><a href="seller_products.html">Manage Products</a></li>
-                <li><a href="chat_with_customer.html">Chat with Customer</a></li>
-                <li><a href="seller_profile.html" id="profile-link">Profile</a></li>
+                <li>
+                    <a href="seller_homepage.html" id="home-button">
+                        <img src="img/home-icon.png" alt="Home" class="home-icon">
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">
+                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="seller_products.html">Manage Products</a>
+                        <a href="chat_with_customer.html">Chat with Customer</a>
+                        <a href="seller_profile.html" id="profile-link">Profile</a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
@@ -46,6 +57,8 @@
                 usernameElement.textContent = loggedInSeller;
                 logoutButton.addEventListener('click', () => {
                     localStorage.removeItem('loggedInSeller');
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userRole');
                     window.location.href = 'seller_login.html'; // Redirect to login page
                 });
             } else {

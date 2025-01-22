@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Homepage - MarketPlus</title>
+    <title>Owner Dashboard - MarketPlus</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body onload="checkAuthentication()">
+<body onload="checkOwnerAuthentication()">
     <header>
         <h1>MarketPlus</h1>
         <nav>
             <ul>
                 <li>
-                    <a href="seller_homepage.html" id="home-button">
+                    <a href="owner_dashboard.html" id="home-button">
                         <img src="img/home-icon.png" alt="Home" class="home-icon">
                     </a>
                 </li>
@@ -21,8 +21,7 @@
                         <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
                     </a>
                     <div class="dropdown-content">
-                        <a href="seller_products.html">Manage Products</a>
-                        <a href="chat_with_customer.html">Chat with Customer</a>
+                        <a href="owner_dashboard.html">Dashboard</a>
                         <a href="#" id="profile-link">Profile</a>
                     </div>
                 </li>
@@ -30,9 +29,11 @@
         </nav>
     </header>
 
-    <section id="home">
-        <h2>Welcome to the Seller Dashboard!</h2>
-        <p>Manage your products and view your sales performance.</p>
+    <section id="dashboard">
+        <h2>Owner Dashboard</h2>
+        <div id="overview">
+            <!-- Overview content will be dynamically inserted here -->
+        </div>
     </section>
 
     <footer>
@@ -40,5 +41,6 @@
     </footer>
 
     <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script src="owner_dashboard.js"></script> <!-- Link to the owner dashboard-specific JavaScript file -->
 </body>
 </html>

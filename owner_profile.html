@@ -3,36 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - MarketPlus</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <title>Owner Profile - MarketPlus</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body onload="checkAuthentication()">
+<body onload="checkOwnerAuthentication()">
     <header>
-        <h1>MarketPlus</h1>
+        <h1>
+            <a href="#" id="logo-link" class="logo">
+                <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+                MarketPlus
+            </a>
+        </h1>
         <nav>
             <ul>
                 <li>
-                    <a href="#" id="home-button">
+                    <a href="#" id="home-link">
                         <img src="img/home-icon.png" alt="Home" class="home-icon">
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">
-                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="products.html">Products</a>
-                        <a href="#" id="profile-link">Profile</a>
-                        <a href="orders.html">Orders (<span id="order-count">0</span>)</a>
-                        <a href="chat_with_seller.html">Chat with Seller</a>
-                    </div>
-                </li>
+                <li><a href="owner_dashboard.html">Dashboard</a></li>
+                <li><a href="owner_profile.html" id="profile-link">Profile</a></li>
             </ul>
         </nav>
     </header>
 
     <section id="profile">
-        <h2>Profile</h2>
+        <h2>Owner Profile</h2>
         <p>Welcome, <span id="username"></span>!</p>
         <button id="logout-button">Logout</button>
     </section>
@@ -43,7 +39,7 @@
 
     <script src="script.js"></script> <!-- Link to the main JavaScript file -->
     <script>
-        // Check if the user is logged in
+        // Check if the owner is logged in
         document.addEventListener('DOMContentLoaded', () => {
             const loggedInUser = localStorage.getItem('loggedInUser');
             const usernameElement = document.getElementById('username');

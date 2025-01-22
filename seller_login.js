@@ -3,19 +3,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     const sellerLoginForm = document.getElementById('seller-login-form');
 
-    sellerLoginForm.addEventListener('submit', (event) => {
+    sellerLoginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const username = document.getElementById('seller-username').value;
-        const password = document.getElementById('seller-password').value;
 
-        // Validate seller credentials (this is a placeholder; replace with real validation)
-        const storedPassword = localStorage.getItem('seller_' + username);
+        const username = document.getElementById('seller-username').value.trim();
+        const password = document.getElementById('seller-password').value.trim();
 
-        if (storedPassword && storedPassword === password) {
-            localStorage.setItem('loggedInSeller', username); // Store the logged-in seller
-            window.location.href = 'seller_homepage.html'; // Redirect to seller homepage
-        } else {
-            alert('Invalid username or password.');
+        if (username && password) {
+            try {
+                const response = await fetch('http://localhost:5000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('loggedInUser', username);
+                    localStorage.setItem('userRole', data.role);
+
+                    if (data.role === 'seller') {
+                        window.location.href = 'seller_homepage.html';
+                    } else {
+                        alert('Invalid role. Please log in as a seller.');
+                    }
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
         }
     });
 });

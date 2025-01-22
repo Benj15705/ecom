@@ -3,19 +3,37 @@
 document.addEventListener('DOMContentLoaded', () => {
     const userLoginForm = document.getElementById('user-login-form');
 
-    userLoginForm.addEventListener('submit', (event) => {
+    userLoginForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const username = document.getElementById('user-username').value;
         const password = document.getElementById('user-password').value;
 
-        // Validate user credentials (this is a placeholder; replace with real validation)
-        const storedPassword = localStorage.getItem('user_' + username);
+        try {
+            const response = await fetch('http://localhost:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
 
-        if (storedPassword && storedPassword === password) {
-            localStorage.setItem('loggedInUser', username); // Store the logged-in user
-            window.location.href = 'index.html'; // Redirect to homepage
-        } else {
-            alert('Invalid username or password.');
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('token', data.token); // Store the JWT token
+                localStorage.setItem('loggedInUser', username); // Store the logged-in user
+                localStorage.setItem('userRole', data.role); // Store the user role
+
+                if (data.role === 'owner') {
+                    window.location.href = 'owner_overview.html'; // Redirect to owner overview
+                } else {
+                    window.location.href = 'index.html'; // Redirect to homepage
+                }
+            } else {
+                const errorData = await response.json();
+                alert(errorData.error);
+            }
+        } catch (error) {
+            alert('An error occurred. Please try again.');
         }
     });
 });

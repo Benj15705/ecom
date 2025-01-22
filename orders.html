@@ -8,18 +8,25 @@
 </head>
 <body onload="checkAuthentication()">
     <header>
-        <h1>
-            <a href="index.html" class="logo">
-                <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
-                MarketPlus
-            </a>
-        </h1>
+        <h1>MarketPlus</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="user_profile.html" id="profile-link">Profile</a></li>
-                <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
+                <li>
+                    <a href="#" id="home-button">
+                        <img src="img/home-icon.png" alt="Home" class="home-icon">
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">
+                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="products.html">Products</a>
+                        <a href="#" id="profile-link">Profile</a>
+                        <a href="orders.html">Orders (<span id="order-count">0</span>)</a>
+                        <a href="chat_with_seller.html">Chat with Seller</a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>

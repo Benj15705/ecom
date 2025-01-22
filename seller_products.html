@@ -1,19 +1,104 @@
-function openTab(evt, tabName) {
-    const tabContents = document.getElementsByClassName('tab-content');
-    for (let i = 0; i < tabContents.length; i++) {
-        tabContents[i].style.display = 'none';
-    }
-    const tabButtons = document.getElementsByClassName('tab-button');
-    for (let i = 0; i < tabButtons.length; i++) {
-        tabButtons[i].className = tabButtons[i].className.replace(' active', '');
-    }
-    document.getElementById(tabName).style.display = 'block';
-    evt.currentTarget.className += ' active';
-}
-// Set default tab
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.tab-button').click();
-});
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - MarketPlus</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onload="checkAuthentication()">
+    <header>
+        <h1>
+            <a href="seller_homepage.html" id="logo-link" class="logo">
+                <img src="img/home-icon.png" alt="MarketPlus Logo" class="logo-image">
+                MarketPlus
+            </a>
+        </h1>
+        <nav>
+            <ul>
+                <li>
+                    <a href="seller_homepage.html" id="home-button">
+                        <img src="img/home-icon.png" alt="Home" class="home-icon">
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">
+                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="seller_products.html">Manage Products</a>
+                        <a href="chat_with_customer.html">Chat with Customer</a>
+                        <a href="seller_profile.html" id="profile-link">Profile</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section id="manage-products">
+        <h2>Manage Products</h2>
+        <div class="tabs">
+            <button class="tab-button" onclick="openTab(event, 'product-list-tab')">Product List</button>
+            <button class="tab-button" onclick="openTab(event, 'add-product-tab')">Add Product</button>
+            <button class="tab-button" onclick="openTab(event, 'edit-product-tab')" style="display:none;" id="edit-product-tab-button">Edit Product</button>
+        </div>
+        <div id="product-list-tab" class="tab-content">
+            <div id="product-list">
+                <!-- Product items will be dynamically inserted here -->
+            </div>
+        </div>
+        <div id="add-product-tab" class="tab-content" style="display:none;">
+            <form id="product-form">
+                <label for="product-name">Product Name:</label>
+                <input type="text" id="product-name" required>
+                <label for="product-price">Price:</label>
+                <input type="number" id="product-price" required>
+                <label for="product-description">Description:</label>
+                <textarea id="product-description" required></textarea>
+                <label for="product-inventory">Inventory:</label>
+                <input type="number" id="product-inventory" required>
+                <label for="product-image">Image:</label>
+                <input type="file" id="product-image" accept="image/*" required>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+        <div id="edit-product-tab" class="tab-content" style="display:none;">
+            <form id="edit-product-form">
+                <label for="edit-product-name">Product Name:</label>
+                <input type="text" id="edit-product-name" required>
+                <label for="edit-product-price">Price:</label>
+                <input type="number" id="edit-product-price" required>
+                <label for="edit-product-description">Description:</label>
+                <textarea id="edit-product-description" required></textarea>
+                <label for="edit-product-inventory">Inventory:</label>
+                <input type="number" id="edit-product-inventory" required>
+                <label for="edit-product-image">Image:</label>
+                <input type="file" id="edit-product-image" accept="image/*">
+                <button type="submit">Update Product</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 MarketPlus</p>
+    </footer>
+    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script src="seller_products.js"></script> <!-- Link to the products-specific JavaScript file -->
+    <script>
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+            document.getElementById(tabName).style.display = 'block';
+            evt.currentTarget.className += ' active';
+        }
+        // Set default tab
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.tab-button').click();
+        });
+    </script>
 </body>
 </html>
