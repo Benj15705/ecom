@@ -19,11 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 const data = await response.json();
-                // Remove these lines
-                // localStorage.setItem('token', data.token);
-                // localStorage.setItem('loggedInUser', username);
-                // localStorage.setItem('userRole', data.role);
-
                 if (data.role === 'owner') {
                     window.location.href = 'owner_overview.html'; // Redirect to owner overview
                 } else {

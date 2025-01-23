@@ -22,11 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Remove these lines
-                    // localStorage.setItem('token', data.token);
-                    // localStorage.setItem('loggedInUser', username);
-                    // localStorage.setItem('userRole', data.role);
-
                     if (data.role === 'owner') {
                         window.location.href = 'owner_dashboard.html';
                     } else if (data.role === 'seller') {
