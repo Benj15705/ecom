@@ -6,7 +6,7 @@
     <title>Owner Profile - MarketPlus</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body onload="checkOwnerAuthentication()">
+<body>
     <header>
         <h1>
             <a href="#" id="logo-link" class="logo">
@@ -39,24 +39,24 @@
 
     <script src="script.js"></script> <!-- Link to the main JavaScript file -->
     <script>
-        // Check if the owner is logged in
-        document.addEventListener('DOMContentLoaded', () => {
-            const loggedInUser = localStorage.getItem('loggedInUser');
-            const usernameElement = document.getElementById('username');
-            const logoutButton = document.getElementById('logout-button');
+        // Remove these lines
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     const loggedInUser = localStorage.getItem('loggedInUser');
+        //     const usernameElement = document.getElementById('username');
+        //     const logoutButton = document.getElementById('logout-button');
 
-            if (loggedInUser) {
-                usernameElement.textContent = loggedInUser;
-                logoutButton.addEventListener('click', () => {
-                    localStorage.removeItem('loggedInUser');
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('userRole');
-                    window.location.href = 'user_login.html'; // Redirect to login page
-                });
-            } else {
-                window.location.href = 'user_login.html'; // Redirect to login page if not logged in
-            }
-        });
+        //     if (loggedInUser) {
+        //         usernameElement.textContent = loggedInUser;
+        //         logoutButton.addEventListener('click', () => {
+        //             localStorage.removeItem('loggedInUser');
+        //             localStorage.removeItem('token');
+        //             localStorage.removeItem('userRole');
+        //             window.location.href = 'user_login.html'; // Redirect to login page
+        //         });
+        //     } else {
+        //         window.location.href = 'user_login.html'; // Redirect to login page if not logged in
+        //     }
+        // });
     </script>
 </body>
 </html>

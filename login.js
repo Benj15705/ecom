@@ -22,9 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('loggedInUser', username);
-                    localStorage.setItem('userRole', data.role);
+                    // Remove these lines
+                    // localStorage.setItem('token', data.token);
+                    // localStorage.setItem('loggedInUser', username);
+                    // localStorage.setItem('userRole', data.role);
 
                     if (data.role === 'owner') {
                         window.location.href = 'owner_dashboard.html';

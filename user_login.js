@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('user-password').value;
 
         try {
-            const response = await fetch('ecom-xo5a.vercel.app', { // Replace with your deployed backend URL
+            const response = await fetch('http://localhost:5000/login', { // Replace with your deployed backend URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -19,9 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('token', data.token); // Store the JWT token
-                localStorage.setItem('loggedInUser', username); // Store the logged-in user
-                localStorage.setItem('userRole', data.role); // Store the user role
+                // Remove these lines
+                // localStorage.setItem('token', data.token);
+                // localStorage.setItem('loggedInUser', username);
+                // localStorage.setItem('userRole', data.role);
 
                 if (data.role === 'owner') {
                     window.location.href = 'owner_overview.html'; // Redirect to owner overview
