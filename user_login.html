@@ -35,6 +35,27 @@
         <p>&copy; 2025 MarketPlus</p>
     </footer>
 
-    <script src="user_login.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userLoginForm = document.getElementById('user-login-form');
+
+            userLoginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const username = document.getElementById('user-username').value;
+                const password = document.getElementById('user-password').value;
+
+                // Authenticate user using localStorage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(user => user.username === username && user.password === password && user.role === 'user');
+
+                if (user) {
+                    localStorage.setItem('loggedInUser', username);
+                    window.location.href = 'index.html'; // Redirect to homepage
+                } else {
+                    alert('Invalid username or password');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

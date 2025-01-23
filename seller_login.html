@@ -35,6 +35,27 @@
         <p>&copy; 2025 MarketPlus</p>
     </footer>
 
-    <script src="seller_login.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sellerLoginForm = document.getElementById('seller-login-form');
+
+            sellerLoginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const username = document.getElementById('seller-username').value;
+                const password = document.getElementById('seller-password').value;
+
+                // Authenticate seller using localStorage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const seller = users.find(user => user.username === username && user.password === password && user.role === 'seller');
+
+                if (seller) {
+                    localStorage.setItem('loggedInSeller', username);
+                    window.location.href = 'seller_homepage.html'; // Redirect to seller homepage
+                } else {
+                    alert('Invalid username or password');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

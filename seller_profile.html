@@ -46,5 +46,23 @@
     </footer>
 
     <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script>
+        // Check if the seller is logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInSeller = localStorage.getItem('loggedInSeller');
+            const usernameElement = document.getElementById('username');
+            const logoutButton = document.getElementById('logout-button');
+
+            if (loggedInSeller) {
+                usernameElement.textContent = loggedInSeller;
+                logoutButton.addEventListener('click', () => {
+                    localStorage.removeItem('loggedInSeller');
+                    window.location.href = 'seller_login.html'; // Redirect to login page
+                });
+            } else {
+                window.location.href = 'seller_login.html'; // Redirect to login page if not logged in
+            }
+        });
+    </script>
 </body>
 </html>
