@@ -8,18 +8,22 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
+require('dotenv').config(); // Load environment variables
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const PORT = process.env.PORT || 5000;
-const JWT_SECRET = 'your_jwt_secret_key'; // Replace with your own secret key
+const JWT_SECRET = process.env.JWT_SECRET; // Use the JWT secret from environment variables
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://benj15705.github.io/ecom/', // Replace with your frontend URL
+    credentials: true,
+}));
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/marketplus', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -164,3 +168,4 @@ io.on('connection', (socket) => {
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
