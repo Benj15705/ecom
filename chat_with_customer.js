@@ -13,9 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const socket = io('http://localhost:5000');
-    socket.emit('join', { username: loggedInSeller });
-
     let currentUser = null;
     const users = ['User1', 'User2', 'User3']; // Example user list
 
@@ -35,15 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const message = chatInput.value.trim();
         if (message && currentUser) {
-            socket.emit('sendMessage', { sender: loggedInSeller, receiver: currentUser, message });
             addMessage(loggedInSeller, message);
             chatInput.value = '';
-        }
-    });
-
-    socket.on('receiveMessage', ({ sender, message, timestamp }) => {
-        if (sender === currentUser) {
-            addMessage(sender, message, timestamp);
         }
     });
 
@@ -55,10 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    async function loadChatMessages(user) {
+    function loadChatMessages(user) {
         chatMessages.innerHTML = ''; // Clear current messages
-        const response = await fetch(`http://localhost:5000/chat/${loggedInSeller}/${user}`);
-        const chatHistory = await response.json();
+        // Example chat history
+        const chatHistory = [
+            { sender: user, message: 'Hello!', timestamp: new Date() },
+            { sender: loggedInSeller, message: 'Hi there!', timestamp: new Date() }
+        ];
         chatHistory.forEach(message => {
             addMessage(message.sender, message.message, message.timestamp);
         });
