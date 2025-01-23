@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('user-password').value;
 
         try {
-            const response = await fetch('https://ecom-topaz-xi.vercel.app/', { // Replace with your deployed backend URL
+            const response = await fetch('ecom-xo5a.vercel.app', { // Replace with your deployed backend URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
