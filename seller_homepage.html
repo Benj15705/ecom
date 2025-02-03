@@ -4,63 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Homepage - MarketPlus</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
 </head>
 <body>
     <header>
-        <h1>MarketPlus</h1>
-        <nav>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
             <ul>
-                <li>
-                    <a href="seller_homepage.html" id="home-button">
-                        <img src="img/home-icon.png" alt="Home" class="home-icon">
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">
-                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="seller_products.html">Manage Products</a>
-                        <a href="chat_with_customer.html">Chat with Customer</a>
-                        <a href="#" id="profile-link">Profile</a>
-                    </div>
-                </li>
+                <li><a href="seller_homepage.html">Home</a></li>
+                <li><a href="seller_products.html">Manage Products</a></li>
+                <li><a href="chat_with_customer.html">Chat with Customer</a></li>
             </ul>
         </nav>
+        <a href="seller_profile.html" class="profile-button" id="profile-link">
+            <img src="img/profile-pic.jpg" alt="Profile Picture">
+            <span id="username">Username</span>
+        </a>
     </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h2>Welcome to MarketPlus Seller Dashboard!</h2>
-            <p>Manage your products and view your sales performance.</p>
-            <a href="seller_products.html" class="cta-button">Manage Products</a>
-        </div>
-    </section>
+    <div class="main-container">
+        <main>
+            <section id="hero">
+                <div class="hero-content">
+                    <h2>Welcome to MarketPlus!</h2>
+                    <p>Manage your products and interact with customers.</p>
+                    <a href="seller_products.html" class="cta-button">Manage Products</a>
+                </div>
+            </section>
 
-    <section id="featured-products">
-        <h2>Your Featured Products</h2>
-        <div class="product-grid">
-            <div class="product-item">
-                <img src="img/product1.jpg" alt="Product 1" class="product-image">
-                <h3>Product 1</h3>
-                <p>$19.99</p>
-                <a href="product_details.html?product=Product1" class="product-link">View Details</a>
-            </div>
-            <div class="product-item">
-                <img src="img/product2.jpg" alt="Product 2" class="product-image">
-                <h3>Product 2</h3>
-                <p>$29.99</p>
-                <a href="product_details.html?product=Product2" class="product-link">View Details</a>
-            </div>
-            <div class="product-item">
-                <img src="img/product3.jpg" alt="Product 3" class="product-image">
-                <h3>Product 3</h3>
-                <p>$39.99</p>
-                <a href="product_details.html?product=Product3" class="product-link">View Details</a>
-            </div>
-        </div>
-    </section>
+            <section id="featured-products">
+                <h2>Your Products</h2>
+                <div class="product-grid">
+                    <div class="product-item">
+                        <img src="img/product1.jpg" alt="Product 1" class="product-image">
+                        <h3>Product 1</h3>
+                        <p>$19.99</p>
+                        <a href="product_details.html?product=Product1" class="product-link">View Details</a>
+                    </div>
+                    <div class="product-item">
+                        <img src="img/product2.jpg" alt="Product 2" class="product-image">
+                        <h3>Product 2</h3>
+                        <p>$29.99</p>
+                        <a href="product_details.html?product=Product2" class="product-link">View Details</a>
+                    </div>
+                    <div class="product-item">
+                        <img src="img/product3.jpg" alt="Product 3" class="product-image">
+                        <h3>Product 3</h3>
+                        <p>$39.99</p>
+                        <a href="product_details.html?product=Product3" class="product-link">View Details</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>

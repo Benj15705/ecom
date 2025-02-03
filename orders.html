@@ -6,43 +6,53 @@
     <title>Orders - MarketPlus</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
 </head>
-<body onload="checkAuthentication()">
+<body>
     <header>
-        <h1>MarketPlus</h1>
-        <nav>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
             <ul>
-                <li>
-                    <a href="#" id="home-button">
-                        <img src="img/home-icon.png" alt="Home" class="home-icon">
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">
-                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="products.html">Products</a>
-                        <a href="#" id="profile-link">Profile</a>
-                        <a href="orders.html">Orders (<span id="order-count">0</span>)</a>
-                        <a href="chat_with_seller.html">Chat with Seller</a>
-                    </div>
-                </li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="profile.html" id="profile-link">Profile</a></li>
+                <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
+                <li><a href="chat_with_seller.html">Chat with Seller</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="orders">
-        <h2>Your Orders</h2>
-        <div id="order-items">
-            <p>Your order list is empty.</p>
-        </div>
-    </section>
+    <div class="main-container">
+        <main>
+            <section id="orders">
+                <h2>Your Orders</h2>
+                <div class="order-item">
+                    <img src="img/product1.jpg" alt="Product 1">
+                    <h3>Product 1</h3>
+                    <p>$19.99</p>
+                    <button>View Details</button>
+                </div>
+                <div class="order-item">
+                    <img src="img/product2.jpg" alt="Product 2">
+                    <h3>Product 2</h3>
+                    <p>$29.99</p>
+                    <button>View Details</button>
+                </div>
+                <div class="order-item">
+                    <img src="img/product3.jpg" alt="Product 3">
+                    <h3>Product 3</h3>
+                    <p>$39.99</p>
+                    <button>View Details</button>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>
     </footer>
 
     <script src="script.js"></script> <!-- Link to the main JavaScript file -->
-    <script src="orders.js"></script> <!-- Link to the orders-specific JavaScript file -->
 </body>
 </html>

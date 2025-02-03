@@ -80,25 +80,7 @@
     <footer>
         <p>&copy; 2025 MarketPlus</p>
     </footer>
-    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
-    <script src="seller_products.js"></script> <!-- Link to the products-specific JavaScript file -->
-    <script>
-        function openTab(evt, tabName) {
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].style.display = 'none';
-            }
-            const tabButtons = document.getElementsByClassName('tab-button');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
-            }
-            document.getElementById(tabName).style.display = 'block';
-            evt.currentTarget.className += ' active';
-        }
-        // Set default tab
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.tab-button').click();
-        });
-    </script>
+    <script src="script.js"></script>
+    <script src="seller_products.js"></script>
 </body>
 </html>

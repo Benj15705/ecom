@@ -8,28 +8,30 @@
 </head>
 <body>
     <header>
-        <h1>
-            <a href="index.html" class="logo">
-                <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
-                MarketPlus
-            </a>
-        </h1>
+        <div class="logo-container centered">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
     </header>
 
-    <section id="login-container">
-        <h2>User Login</h2>
-        <form id="user-login-form">
-            <label for="user-username">Username:</label>
-            <input type="text" id="user-username" name="username" required>
-            
-            <label for="user-password">Password:</label>
-            <input type="password" id="user-password" name="password" required>
-            
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="user_signup.html">Sign Up</a></p>
-        <p>Want to log in as a seller? <a href="seller_login.html">Seller Login</a></p>
-    </section>
+    <div class="main-container">
+        <main>
+            <section id="login-container">
+                <h2>User Login</h2>
+                <form id="user-login-form">
+                    <label for="user-username">Username:</label>
+                    <input type="text" id="user-username" name="username" required>
+                    
+                    <label for="user-password">Password:</label>
+                    <input type="password" id="user-password" name="password" required>
+                    
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="user_signup.html">Sign Up</a></p>
+                <p>Want to log in as a seller? <a href="seller_login.html">Seller Login</a></p>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>

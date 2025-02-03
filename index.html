@@ -8,80 +8,65 @@
 </head>
 <body>
     <header>
-        <h1>MarketPlus</h1>
-        <nav>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
             <ul>
-                <li>
-                    <a href="#" id="home-button">
-                        <img src="img/home-icon.png" alt="Home" class="home-icon">
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">
-                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="products.html">Products</a>
-                        <a href="#" id="profile-link">Profile</a>
-                        <a href="orders.html">Orders (<span id="order-count">0</span>)</a>
-                        <a href="chat_with_seller.html">Chat with Seller</a>
-                    </div>
-                </li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
+                <li><a href="chat_with_seller.html">Chat with Seller</a></li>
             </ul>
         </nav>
+        <div class="profile-container">
+            <a href="profile.html" class="profile-button" id="profile-link">
+                <img src="img/profile-pic.jpg" alt="Profile Picture">
+                <span id="username">Username</span>
+            </a>
+            <div class="profile-dropdown">
+                <a href="profile.html">Edit Profile</a>
+                <a href="#" id="logout-link">Logout</a>
+            </div>
+        </div>
     </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h2>Welcome to MarketPlus!</h2>
-            <p>Find the best products at unbeatable prices.</p>
-            <a href="products.html" class="cta-button">Shop Now</a>
-        </div>
-    </section>
+    <div class="main-container">
+        <main>
+            <section id="hero">
+                <div class="hero-content">
+                    <h2>Welcome to MarketPlus!</h2>
+                    <p>Find the best products at unbeatable prices.</p>
+                    <a href="products.html" class="cta-button">Shop Now</a>
+                </div>
+            </section>
 
-    <section id="featured-products">
-        <h2>Featured Products</h2>
-        <div class="product-grid">
-            <div class="product-item">
-                <img src="img/product1.jpg" alt="Product 1" class="product-image">
-                <h3>Product 1</h3>
-                <p>$19.99</p>
-                <a href="product_details.html?product=Product1" class="product-link">View Details</a>
-            </div>
-            <div class="product-item">
-                <img src="img/product2.jpg" alt="Product 2" class="product-image">
-                <h3>Product 2</h3>
-                <p>$29.99</p>
-                <a href="product_details.html?product=Product2" class="product-link">View Details</a>
-            </div>
-            <div class="product-item">
-                <img src="img/product3.jpg" alt="Product 3" class="product-image">
-                <h3>Product 3</h3>
-                <p>$39.99</p>
-                <a href="product_details.html?product=Product3" class="product-link">View Details</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="promotions">
-        <h2>Special Promotions</h2>
-        <div class="promotion-banner">
-            <img src="img/promotion1.jpg" alt="Promotion 1" class="promotion-image">
-            <div class="promotion-text">
-                <h3>Suki Discount!</h3>
-                <p>Get up to 50% off on selected items. Limited time offer!</p>
-                <a href="products.html" class="cta-button">Shop Now</a>
-            </div>
-        </div>
-        <div class="promotion-banner">
-            <img src="img/promotion2.jpg" alt="Promotion 2" class="promotion-image">
-            <div class="promotion-text">
-                <h3>New Arrivals</h3>
-                <p>Check out the latest additions to our store. Don't miss out!</p>
-                <a href="products.html" class="cta-button">Shop Now</a>
-            </div>
-        </div>
-    </section>
+            <section id="featured-products">
+                <h2>Featured Products</h2>
+                <div class="product-grid">
+                    <div class="product-item">
+                        <img src="img/product1.jpg" alt="Product 1" class="product-image">
+                        <h3>Product 1</h3>
+                        <p>$19.99</p>
+                        <a href="product_details.html?product=Product1" class="product-link">View Details</a>
+                    </div>
+                    <div class="product-item">
+                        <img src="img/product2.jpg" alt="Product 2" class="product-image">
+                        <h3>Product 2</h3>
+                        <p>$29.99</p>
+                        <a href="product_details.html?product=Product2" class="product-link">View Details</a>
+                    </div>
+                    <div class="product-item">
+                        <img src="img/product3.jpg" alt="Product 3" class="product-image">
+                        <h3>Product 3</h3>
+                        <p>$39.99</p>
+                        <a href="product_details.html?product=Product3" class="product-link">View Details</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>

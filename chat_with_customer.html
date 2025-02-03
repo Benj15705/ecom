@@ -29,30 +29,23 @@
             </ul>
         </nav>
     </header>
-    <section id="chatroom">
+
+    <section id="chat">
         <h2>Chat with Customer</h2>
-        <div id="chat-container">
-            <div id="chat-box">
-                <div id="chat-messages">
-                    <!-- Messages will be displayed here -->
-                </div>
-                <form id="chat-form">
-                    <input type="text" id="chat-input" placeholder="Type a message..." required>
-                    <button type="submit">Send</button>
-                </form>
-            </div>
-            <div id="user-list">
-                <h3>Customers</h3>
-                <ul id="users">
-                    <!-- User list will be populated here -->
-                </ul>
-            </div>
+        <div id="chat-window">
+            <!-- Chat messages will be dynamically inserted here -->
         </div>
+        <form id="chat-form">
+            <input type="text" id="chat-input" placeholder="Type a message..." required>
+            <button type="submit">Send</button>
+        </form>
     </section>
+
     <footer>
         <p>&copy; 2025 MarketPlus</p>
     </footer>
-    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
-    <script src="chat_with_customer.js"></script> <!-- Link to the chat-specific JavaScript file -->
+
+    <script src="script.js"></script>
+    <script src="chat_with_customer.js"></script>
 </body>
 </html>

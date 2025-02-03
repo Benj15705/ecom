@@ -41,24 +41,6 @@
         <p>&copy; 2025 MarketPlus</p>
     </footer>
 
-    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
-    <script>
-        // Check if the user is logged in
-        document.addEventListener('DOMContentLoaded', () => {
-            const loggedInUser = localStorage.getItem('loggedInUser');
-            const usernameElement = document.getElementById('username');
-            const logoutButton = document.getElementById('logout-button');
-
-            if (loggedInUser) {
-                usernameElement.textContent = loggedInUser;
-                logoutButton.addEventListener('click', () => {
-                    localStorage.removeItem('loggedInUser');
-                    window.location.href = 'user_login.html'; // Redirect to login page
-                });
-            } else {
-                window.location.href = 'user_login.html'; // Redirect to login page if not logged in
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

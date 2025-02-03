@@ -8,28 +8,30 @@
 </head>
 <body>
     <header>
-        <h1>
-            <a href="index.html" class="logo">
-                <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
-                MarketPlus
-            </a>
-        </h1>
+        <div class="logo-container centered">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
     </header>
 
-    <section id="signup-container">
-        <h2>Seller Sign Up</h2>
-        <form id="seller-signup-form">
-            <label for="signup-seller-username">Username:</label>
-            <input type="text" id="signup-seller-username" name="username" required>
-            
-            <label for="signup-seller-password">Password:</label>
-            <input type="password" id="signup-seller-password" name="password" required>
-            
-            <button type="submit">Sign Up</button>
-        </form>
-        <p>Already have an account? <a href="seller_login.html">Login</a></p>
-        <p>Want to sign up as a user? <a href="user_signup.html">User Sign Up</a></p>
-    </section>
+    <div class="main-container">
+        <main>
+            <section id="signup-container">
+                <h2>Seller Sign Up</h2>
+                <form id="seller-signup-form">
+                    <label for="signup-seller-username">Username:</label>
+                    <input type="text" id="signup-seller-username" name="username" required>
+                    
+                    <label for="signup-seller-password">Password:</label>
+                    <input type="password" id="signup-seller-password" name="password" required>
+                    
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p>Already have an account? <a href="seller_login.html">Login</a></p>
+                <p>Want to sign up as a user? <a href="user_signup.html">User Sign Up</a></p>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>

@@ -6,29 +6,49 @@
     <title>Profile - MarketPlus</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
 </head>
-<body onload="checkAuthentication()">
+<body>
     <header>
-        <h1>
-            <a href="index.html" class="logo">
-                <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
-                MarketPlus
-            </a>
-        </h1>
-        <nav>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
-                <li><a href="profile.html" id="profile-link">Profile</a></li>
                 <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
+                <li><a href="chat_with_seller.html">Chat with Seller</a></li>
             </ul>
         </nav>
+        <div class="profile-container">
+            <a href="profile.html" class="profile-button" id="profile-link">
+                <img src="img/profile-pic.jpg" alt="Profile Picture">
+                <span id="username">Username</span>
+            </a>
+            <div class="profile-dropdown">
+                <a href="profile.html">Edit Profile</a>
+                <a href="#" id="logout-link">Logout</a>
+            </div>
+        </div>
     </header>
 
-    <section id="profile">
-        <h2>Profile</h2>
-        <p>Welcome, <span id="username"></span>!</p>
-        <button id="logout-button">Logout</button>
-    </section>
+    <div class="main-container">
+        <main>
+            <section id="profile">
+                <h2>Your Profile</h2>
+                <form id="profile-form">
+                    <label for="profile-username">Username:</label>
+                    <input type="text" id="profile-username" name="username" required>
+                    
+                    <label for="profile-picture">Profile Picture:</label>
+                    <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+                    
+                    <button type="submit">Save Changes</button>
+                </form>
+                <button id="logout-button">Logout</button>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>
@@ -36,17 +56,67 @@
 
     <script src="script.js"></script> <!-- Link to the main JavaScript file -->
     <script>
-        // Check if the user is logged in
         document.addEventListener('DOMContentLoaded', () => {
+            const profileForm = document.getElementById('profile-form');
+            const logoutButton = document.getElementById('logout-button');
+            const profileLink = document.getElementById('profile-link');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+            const logoutLink = document.getElementById('logout-link');
+
             const loggedInUser = localStorage.getItem('loggedInUser');
             const usernameElement = document.getElementById('username');
-            const logoutButton = document.getElementById('logout-button');
+            const profileUsername = document.getElementById('profile-username');
+            const profilePicture = document.getElementById('profile-picture');
 
             if (loggedInUser) {
                 usernameElement.textContent = loggedInUser;
+                profileUsername.value = loggedInUser;
+
+                profileForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const newUsername = profileUsername.value.trim();
+                    const newProfilePicture = profilePicture.files[0];
+
+                    if (newUsername) {
+                        localStorage.setItem('loggedInUser', newUsername);
+                        usernameElement.textContent = newUsername;
+                        alert('Profile updated successfully!');
+                    }
+
+                    if (newProfilePicture) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            profileLink.querySelector('img').src = e.target.result;
+                            alert('Profile picture updated successfully!');
+                        };
+                        reader.readAsDataURL(newProfilePicture);
+                    }
+                });
+
                 logoutButton.addEventListener('click', () => {
                     localStorage.removeItem('loggedInUser');
                     window.location.href = 'user_login.html'; // Redirect to login page
+                });
+
+                logoutLink.addEventListener('click', () => {
+                    localStorage.removeItem('loggedInUser');
+                    window.location.href = 'user_login.html'; // Redirect to login page
+                });
+
+                profileLink.addEventListener('mouseover', () => {
+                    profileDropdown.style.display = 'block';
+                });
+
+                profileLink.addEventListener('mouseout', () => {
+                    profileDropdown.style.display = 'none';
+                });
+
+                profileDropdown.addEventListener('mouseover', () => {
+                    profileDropdown.style.display = 'block';
+                });
+
+                profileDropdown.addEventListener('mouseout', () => {
+                    profileDropdown.style.display = 'none';
                 });
             } else {
                 window.location.href = 'user_login.html'; // Redirect to login page if not logged in
