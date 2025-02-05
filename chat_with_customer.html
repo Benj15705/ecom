@@ -35,6 +35,27 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .input-container {
+            display: flex;
+            margin-top: 10px;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .input-container button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .input-container button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body onload="checkAuthentication()">
@@ -55,10 +76,13 @@
             <div class="chat-box" id="chat-window">
                 <!-- Chat messages will be dynamically inserted here -->
             </div>
-            <div class="input-container">
-                <input type="text" id="chat-input" placeholder="Type a message..." required>
-                <button type="submit">Send</button>
-            </div>
+            <!-- Wrap the input and button in a form to trigger submit event -->
+            <form id="chat-form">
+                <div class="input-container">
+                    <input type="text" id="chat-input" placeholder="Type a message..." required>
+                    <button type="submit">Send</button>
+                </div>
+            </form>
         </div>
     </section>
 

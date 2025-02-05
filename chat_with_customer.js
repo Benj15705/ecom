@@ -9,15 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'seller_login.html';
         return;
     }
+    console.log('Logged in as: ', loggedInSeller);  // For debugging
 
     chatForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+        event.preventDefault();  // Prevent form from reloading the page
 
         const message = chatInput.value.trim();
         if (message) {
             addMessage(loggedInSeller, message);
-            chatInput.value = '';
-            setTimeout(() => customerReply(), 1000);
+            chatInput.value = '';  // Clear input after sending the message
+            setTimeout(() => customerReply(), 1000);  // Simulate a customer reply after 1 second
         }
     });
 
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         messageElement.className = sender === loggedInSeller ? 'chat-message seller' : 'chat-message customer';
         messageElement.innerHTML = `<strong>${sender}:</strong> ${text} <span class="timestamp">${new Date().toLocaleTimeString()}</span>`;
         chatWindow.appendChild(messageElement);
-        chatWindow.scrollTop = chatWindow.scrollHeight;
+        chatWindow.scrollTop = chatWindow.scrollHeight;  // Scroll to bottom
     }
 
     function customerReply() {
@@ -37,6 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "Thank you!"
         ];
         const response = responses[Math.floor(Math.random() * responses.length)];
-        addMessage("Customer", response);
+        addMessage("Customer", response);  // Simulate a customer response
     }
 });
