@@ -4,41 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat with Customer - MarketPlus</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chat.css">
+    <style>
+        header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #9ac891;
+            border-bottom: 1px solid #ddd;
+        }
+        .home-button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .home-button:hover {
+            background-color: #45a049;
+        }
+        .chat-title {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .seller-select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body onload="checkAuthentication()">
+
     <header>
-        <h1>MarketPlus</h1>
-        <nav>
-            <ul>
-                <li>
-                    <a href="seller_homepage.html" id="home-button">
-                        <img src="img/home-icon.png" alt="Home" class="home-icon">
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">
-                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="seller_products.html">Manage Products</a>
-                        <a href="chat_with_customer.html">Chat with Customer</a>
-                        <a href="seller_profile.html" id="profile-link">Profile</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+        <a href="seller_homepage.html" class="home-button">Home</a>
+        <div class="chat-title">MarketPlus</div>
+        <select class="seller-select" id="seller-select">
+            <option value="customer1">Customer 1</option>
+            <option value="customer2">Customer 2</option>
+            <option value="customer3">Customer 3</option>
+        </select>
     </header>
 
     <section id="chat">
         <h2>Chat with Customer</h2>
-        <div id="chat-window">
-            <!-- Chat messages will be dynamically inserted here -->
+        <div class="chat-container">
+            <div class="chat-box" id="chat-window">
+                <!-- Chat messages will be dynamically inserted here -->
+            </div>
+            <div class="input-container">
+                <input type="text" id="chat-input" placeholder="Type a message..." required>
+                <button type="submit">Send</button>
+            </div>
         </div>
-        <form id="chat-form">
-            <input type="text" id="chat-input" placeholder="Type a message..." required>
-            <button type="submit">Send</button>
-        </form>
     </section>
 
     <footer>
@@ -47,5 +68,12 @@
 
     <script src="script.js"></script>
     <script src="chat_with_customer.js"></script>
+    <script>
+        document.getElementById('seller-select').addEventListener('change', function() {
+            const selectedCustomer = this.value;
+            console.log('Selected customer:', selectedCustomer);
+            // Here you can add code to handle the selected customer, e.g., load previous chat history, etc.
+        });
+    </script>
 </body>
 </html>

@@ -13,16 +13,28 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Ensure only valid numbers are entered in the inputs
+    document.getElementById('product-price').addEventListener('input', validateNumber);
+    document.getElementById('product-inventory').addEventListener('input', validateNumber);
+    document.getElementById('edit-product-price').addEventListener('input', validateNumber);
+    document.getElementById('edit-product-inventory').addEventListener('input', validateNumber);
+
+    function validateNumber(event) {
+        if (event.target.value < 0) {
+            event.target.value = 0;
+        }
+    }
+
     productForm.addEventListener('submit', (event) => {
         event.preventDefault();
 
         const name = document.getElementById('product-name').value.trim();
-        const price = document.getElementById('product-price').value.trim();
+        const price = parseFloat(document.getElementById('product-price').value.trim());
         const description = document.getElementById('product-description').value.trim();
-        const inventory = document.getElementById('product-inventory').value.trim();
+        const inventory = parseInt(document.getElementById('product-inventory').value.trim(), 10);
         const imageFile = document.getElementById('product-image').files[0];
 
-        if (name && price && description && inventory && imageFile) {
+        if (name && price > 0 && price <= 1000 && description && inventory >= 0 && inventory <= 100 && imageFile) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const imageUrl = e.target.result;
@@ -30,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 productForm.reset();
             };
             reader.readAsDataURL(imageFile);
+        } else {
+            alert('Please enter valid product details. Price should be between 0 and 1000. Inventory should be between 0 and 100.');
         }
     });
 
@@ -37,32 +51,28 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         const name = document.getElementById('edit-product-name').value.trim();
-        const price = document.getElementById('edit-product-price').value.trim();
+        const price = parseFloat(document.getElementById('edit-product-price').value.trim());
         const description = document.getElementById('edit-product-description').value.trim();
-        const inventory = document.getElementById('edit-product-inventory').value.trim();
+        const inventory = parseInt(document.getElementById('edit-product-inventory').value.trim(), 10);
         const imageFile = document.getElementById('edit-product-image').files[0];
 
-        if (name && price && description && inventory) {
+        if (name && price > 0 && price <= 1000 && description && inventory >= 0 && inventory <= 100) {
             if (imageFile) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const imageUrl = e.target.result;
                     updateProduct(loggedInSeller, editIndex, name, price, description, inventory, imageUrl);
-                    editProductForm.reset();
-                    editIndex = null;
-                    document.getElementById('edit-product-tab-button').style.display = 'none';
-                    document.querySelector('.tab-button').click();
+                    resetEditForm();
                 };
                 reader.readAsDataURL(imageFile);
             } else {
                 const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
                 const product = products[editIndex];
                 updateProduct(loggedInSeller, editIndex, name, price, description, inventory, product.imageUrl);
-                editProductForm.reset();
-                editIndex = null;
-                document.getElementById('edit-product-tab-button').style.display = 'none';
-                document.querySelector('.tab-button').click();
+                resetEditForm();
             }
+        } else {
+            alert('Please enter valid product details. Price should be between 0 and 1000. Inventory should be between 0 and 100.');
         }
     });
 
@@ -135,6 +145,27 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('edit-product-tab-button').style.display = 'block';
         document.getElementById('edit-product-tab-button').click();
     }
+
+    function resetEditForm() {
+        editProductForm.reset();
+        editIndex = null;
+        document.getElementById('edit-product-tab-button').style.display = 'none';
+        document.querySelector('.tab-button').click();
+    }
+
+    // Function to handle tab switching
+    window.openTab = function(evt, tabName) {
+        const tabcontent = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        const tabbuttons = document.getElementsByClassName("tab-button");
+        for (let i = 0; i < tabbuttons.length; i++) {
+            tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    };
 
     displayProducts();
 });

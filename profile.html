@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - MarketPlus</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <style>
+        /* Additional styling for the profile picture */
+        .profile-button img {
+            width: 40px; /* Adjust the size of the profile picture */
+            height: 40px; /* Adjust the size of the profile picture */
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,7 +31,7 @@
         </nav>
         <div class="profile-container">
             <a href="profile.html" class="profile-button" id="profile-link">
-                <img src="img/profile-pic.jpg" alt="Profile Picture">
+                <img src="img/profile-pic.jpg" alt="Profile Picture" id="profile-img">
                 <span id="username">Username</span>
             </a>
             <div class="profile-dropdown">
@@ -67,10 +76,16 @@
             const usernameElement = document.getElementById('username');
             const profileUsername = document.getElementById('profile-username');
             const profilePicture = document.getElementById('profile-picture');
+            const profileImg = document.getElementById('profile-img');
 
             if (loggedInUser) {
                 usernameElement.textContent = loggedInUser;
                 profileUsername.value = loggedInUser;
+
+                const storedProfilePic = localStorage.getItem('profilePic');
+                if (storedProfilePic) {
+                    profileImg.src = storedProfilePic;
+                }
 
                 profileForm.addEventListener('submit', (event) => {
                     event.preventDefault();
@@ -86,7 +101,9 @@
                     if (newProfilePicture) {
                         const reader = new FileReader();
                         reader.onload = function(e) {
-                            profileLink.querySelector('img').src = e.target.result;
+                            const base64String = e.target.result;
+                            localStorage.setItem('profilePic', base64String);
+                            profileImg.src = base64String;
                             alert('Profile picture updated successfully!');
                         };
                         reader.readAsDataURL(newProfilePicture);
@@ -95,11 +112,13 @@
 
                 logoutButton.addEventListener('click', () => {
                     localStorage.removeItem('loggedInUser');
+                    localStorage.removeItem('profilePic');
                     window.location.href = 'user_login.html'; // Redirect to login page
                 });
 
                 logoutLink.addEventListener('click', () => {
                     localStorage.removeItem('loggedInUser');
+                    localStorage.removeItem('profilePic');
                     window.location.href = 'user_login.html'; // Redirect to login page
                 });
 

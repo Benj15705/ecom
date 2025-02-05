@@ -3,57 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with Seller - MarketPlus</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <title>Chat with Seller</title>
+    <link rel="stylesheet" href="chat.css">
+    <style>
+        header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #9ac891;
+            border-bottom: 1px solid #ddd;
+        }
+        .home-button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .home-button:hover {
+            background-color: #45a049;
+        }
+        .chat-title {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .seller-select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <div class="logo-container">
-            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
-            <h1>MarketPlus</h1>
-        </div>
-        <nav class="top-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="profile.html" id="profile-link">Profile</a></li>
-                <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
-                <li><a href="chat_with_seller.html">Chat with Seller</a></li>
-            </ul>
-        </nav>
+        <a href="index.html" class="home-button">Home</a>
+        <div class="chat-title">Chat with Seller</div>
+        <select class="seller-select" id="seller-select">
+            <option value="seller1">Seller 1</option>
+            <option value="seller2">Seller 2</option>
+            <option value="seller3">Seller 3</option>
+        </select>
     </header>
 
-    <div class="main-container">
-        <main>
-            <section id="chat-container">
-                <div id="chat-box">
-                    <div id="chat-messages">
-                        <div class="chat-message">
-                            <span class="timestamp">10:00 AM</span>
-                            <p>Hello, how can I help you?</p>
-                        </div>
-                    </div>
-                    <form id="chat-form">
-                        <input type="text" id="chat-input" placeholder="Type your message here...">
-                        <button type="submit">Send</button>
-                    </form>
-                </div>
-                <div id="user-list">
-                    <h3>Online Users</h3>
-                    <ul>
-                        <li>User 1</li>
-                        <li>User 2</li>
-                        <li>User 3</li>
-                    </ul>
-                </div>
-            </section>
-        </main>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box">
+            <!-- Messages will be appended here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="message-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 MarketPlus</p>
-    </footer>
-
-    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script src="chat_with_seller.js"></script>
+    <script>
+        document.getElementById('seller-select').addEventListener('change', function() {
+            const selectedSeller = this.value;
+            console.log('Selected seller:', selectedSeller);
+            // Here you can add code to handle the selected seller, e.g., load previous chat history, etc.
+        });
+    </script>
 </body>
 </html>

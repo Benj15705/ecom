@@ -5,38 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details - MarketPlus</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background-color: white; /* Set background to white */
+            color: black; /* Set text color to black */
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #9ac891; /* Header color */
+            border-bottom: 1px solid #ddd;
+            color: black; /* Set text color to black */
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        nav ul li {
+            margin-left: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: black; /* Set text color to black */
+            display: flex;
+            align-items: center;
+        }
+        .home-icon, .menu-icon {
+            width: 20px; /* Adjust the size of the icons */
+            height: auto;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+            background-color: white; /* Ensure main content background is white */
+            color: black; /* Ensure main content text is black */
+        }
+        footer {
+            background-color: #d2b48c; /* Footer color */
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            color: black; /* Set text color to black */
+        }
+        #product-details {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+        #product-info img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body onload="checkAuthentication()">
     <header>
         <h1>MarketPlus</h1>
         <nav>
             <ul>
-                <li>
-                    <a href="#" id="home-button">
-                        <img src="img/home-icon.png" alt="Home" class="home-icon">
-                    </a>
+                <li><a href="index.html" id="home-button">
+                    <img src="img/home-icon.png" alt="Home" class="home-icon"> Home</a>
                 </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">
-                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="products.html">Products</a>
-                        <a href="#" id="profile-link">Profile</a>
-                        <a href="orders.html">Orders (<span id="order-count">0</span>)</a>
-                        <a href="chat_with_seller.html">Chat with Seller</a>
-                    </div>
-                </li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="profile.html" id="profile-link">Profile</a></li>
+                <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
+                <li><a href="chat_with_seller.html">Chat with Seller</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="product-details">
-        <h2>Product Details</h2>
-        <div id="product-info">
-            <!-- Product details will be dynamically inserted here -->
-        </div>
-    </section>
+    <main>
+        <section id="product-details">
+            <h2>Product Details</h2>
+            <div id="product-info">
+                <!-- Product details will be dynamically inserted here -->
+            </div>
+        </section>
+    </main>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>

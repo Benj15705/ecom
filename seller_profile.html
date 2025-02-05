@@ -5,47 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Profile - MarketPlus</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #9ac891; /* Updated header color */
+            border-bottom: 1px solid #ddd;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+        }
+        .logo-image {
+            width: 40px; /* Adjust the size of the logo image */
+            height: auto;
+            margin-right: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        nav ul li {
+            margin-left: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+        .home-icon {
+            width: 20px; /* Adjust the size of the icons */
+            height: auto;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            background-color: #d2b48c; /* Updated footer color */
+            padding: 10px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>
             <a href="seller_homepage.html" class="logo">
                 <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
-                MarketPlus
+                Homepage
             </a>
         </h1>
         <nav>
             <ul>
                 <li>
                     <a href="seller_homepage.html" id="home-button">
-                        <img src="img/home-icon.png" alt="Home" class="home-icon">
                     </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">
-                        <img src="img/menu-icon.png" alt="Menu" class="menu-icon">
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="seller_products.html">Manage Products</a>
-                        <a href="chat_with_customer.html">Chat with Customer</a>
-                        <a href="#" id="profile-link">Profile</a>
-                    </div>
                 </li>
             </ul>
         </nav>
     </header>
 
-    <section id="profile">
-        <h2>Seller Profile</h2>
-        <p>Welcome, <span id="username"></span>!</p>
-        <button id="logout-button">Logout</button>
-    </section>
+    <main>
+        <section id="profile">
+            <h2>Seller Profile</h2>
+            <p>Welcome, <span id="username"></span>!</p>
+            <button id="logout-button">Logout</button>
+        </section>
+    </main>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>
     </footer>
 
-    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script src="script.js"></script>
     <script>
         // Check if the seller is logged in
         document.addEventListener('DOMContentLoaded', () => {
