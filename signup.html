@@ -8,44 +8,100 @@
 </head>
 <body>
     <header>
-        <h1>
-            <a href="index.html" class="logo">
-                <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
-                MarketPlus
-            </a>
-        </h1>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="chat_with_seller.html">Chat with Seller</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section id="signup-container">
-        <h2>Sign Up</h2>
-        <form id="user-signup-form">
-            <h3>User Sign Up</h3>
-            <label for="signup-username">Username:</label>
-            <input type="text" id="signup-username" name="username" required>
+    <div class="main-container">
+        <main>
+            <section id="signup">
+                <h2>Sign Up</h2>
+                <div class="tab">
+                    <button class="tab-button" onclick="openTab(event, 'UserSignup')">User</button>
+                    <button class="tab-button" onclick="openTab(event, 'SellerSignup')">Seller</button>
+                </div>
 
-            <label for="signup-password">Password:</label>
-            <input type="password" id="signup-password" name="password" required>
+                <div id="UserSignup" class="tab-content">
+                    <form id="user-signup-form">
+                        <label for="signup-username">Username:</label>
+                        <input type="text" id="signup-username" name="username" required>
+                        
+                        <label for="signup-password">Password:</label>
+                        <input type="password" id="signup-password" name="password"<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - MarketPlus</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="chat_with_seller.html">Chat with Seller</a></li>
+            </ul>
+        </nav>
+    </header>
 
-            <button type="submit">Sign Up</button>
-        </form>
+    <div class="main-container">
+        <main>
+            <section id="signup">
+                <h2>Sign Up</h2>
+                <div class="tab">
+                    <button class="tab-button" onclick="openTab(event, 'UserSignup')">User</button>
+                    <button class="tab-button" onclick="openTab(event, 'SellerSignup')">Seller</button>
+                </div>
 
-        <form id="seller-signup-form">
-            <h3>Seller Sign Up</h3>
-            <label for="signup-seller-username">Username:</label>
-            <input type="text" id="signup-seller-username" name="username" required>
+                <div id="UserSignup" class="tab-content">
+                    <form id="user-signup-form">
+                        <label for="signup-username">Username:</label>
+                        <input type="text" id="signup-username" name="username" required>
+                        
+                        <label for="signup-password">Password:</label>
+                        <input type="password" id="signup-password" name="password"                        required>
+                        
+                        <button type="submit">Sign Up</button>
+                    </form>
+                </div>
 
-            <label for="signup-seller-password">Password:</label>
-            <input type="password" id="signup-seller-password" name="password" required>
-
-            <button type="submit">Sign Up</button>
-        </form>
-    </section>
+                <div id="SellerSignup" class="tab-content">
+                    <form id="seller-signup-form">
+                        <label for="signup-seller-username">Username:</label>
+                        <input type="text" id="signup-seller-username" name="username" required>
+                        
+                        <label for="signup-seller-password">Password:</label>
+                        <input type="password" id="signup-seller-password" name="password" required>
+                        
+                        <button type="submit">Sign Up</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>
+        <a href="about.html" class="about-link">About Us</a>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="signup.js"></script>
+    <script src="signup.js"></script> <!-- Link to the signup JavaScript file -->
 </body>
 </html>

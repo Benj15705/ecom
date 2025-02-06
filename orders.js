@@ -1,6 +1,11 @@
 // orders.js
 
-// Function to update the order count
+document.addEventListener('DOMContentLoaded', () => {
+    updateOrderCount();
+    displayOrderItems();
+    setupEventListeners();
+});
+
 function updateOrderCount() {
     const orderCountElement = document.getElementById('order-count');
     const orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
@@ -9,7 +14,6 @@ function updateOrderCount() {
     }
 }
 
-// Function to display order items
 function displayOrderItems() {
     const orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
     const orderItemsElement = document.getElementById('order-items');
@@ -26,12 +30,16 @@ function displayOrderItems() {
                     <img src="${item.image}" alt="${item.name}" style="width: 100px; height: auto;">
                     <h3>${item.name}</h3>
                     <p>${item.price}</p>
+                    <button class="buy-now" data-index="${index}">Buy Now</button>
                     <button class="remove-from-order" data-index="${index}">Remove</button>
                 `;
                 orderItemsElement.appendChild(orderItemElement);
             });
 
-            // Add event listeners to all "Remove" buttons
+            document.querySelectorAll('.buy-now').forEach(button => {
+                button.addEventListener('click', buyNow);
+            });
+
             document.querySelectorAll('.remove-from-order').forEach(button => {
                 button.addEventListener('click', removeFromOrder);
             });
@@ -39,66 +47,119 @@ function displayOrderItems() {
     }
 }
 
-// Function to add item to the order
-function addToOrder(event) {
-    const productElement = event.target.closest('.product');
-    const productName = productElement.querySelector('h3').textContent;
-    const productPrice = productElement.querySelector('p').textContent;
-    const productImage = productElement.querySelector('img').src;
-
-    let orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
-    orderItems.push({ name: productName, price: productPrice, image: productImage });
-    localStorage.setItem('orderItems', JSON.stringify(orderItems));
-
-    updateOrderCount();
-    displayOrderItems(); // Update the order display when an item is added
+function buyNow(event) {
+    const index = event.target.getAttribute('data-index');
+    const orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
+    const item = orderItems[index];
+    enterDetails(item);
 }
 
-// Function to remove item from the order
+function enterDetails(item) {
+    const detailsForm = document.getElementById('details-form');
+    detailsForm.innerHTML = `
+        <h3>Enter Details for ${item.name}</h3>
+        <label for="address">Address:</label>
+        <input type="text" id="address" required>
+        <label for="payment">Payment Method:</label>
+        <input type="text" id="payment" required>
+        <button id="confirm-checkout">Confirm Checkout</button>
+        <button id="cancel-checkout">Cancel</button>
+    `;
+    document.getElementById('confirm-checkout').addEventListener('click', () => confirmCheckout(item));
+    document.getElementById('cancel-checkout').addEventListener('click', displayOrderItems);
+}
+
+function confirmCheckout(item) {
+    const address = document.getElementById('address').value;
+    const payment = document.getElementById('payment').value;
+    if (address && payment) {
+        orderProduct(item, address, payment);
+    } else {
+        alert('Please enter all details.');
+    }
+}
+
+function orderProduct(item, address, payment) {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders.push({ ...item, address, payment, status: 'Pending' });
+    localStorage.setItem('orders', JSON.stringify(orders));
+    alert('Product ordered successfully!');
+    displayOrderItems();
+}
+
 function removeFromOrder(event) {
     const index = event.target.getAttribute('data-index');
     let orderItems = JSON.parse(localStorage.getItem('orderItems')) || [];
-    orderItems.splice(index, 1); // Remove the item at the specified index
+    orderItems.splice(index, 1);
     localStorage.setItem('orderItems', JSON.stringify(orderItems));
-
-    updateOrderCount();
-    displayOrderItems(); // Update the order display when an item is removed
-}
-
-// Add event listeners to all "Add to Order" buttons
-document.querySelectorAll('.add-to-order').forEach(button => {
-    button.addEventListener('click', addToOrder);
-});
-
-// Initial load
-document.addEventListener('DOMContentLoaded', () => {
     updateOrderCount();
     displayOrderItems();
-});
+}
 
-// Chatroom functionality
-const chatForm = document.getElementById('chat-form');
-const chatInput = document.getElementById('chat-input');
-const chatMessages = document.getElementById('chat-messages');
+function setupEventListeners() {
+    document.getElementById('view-orders').addEventListener('click', displayOrders);
+}
 
-chatForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const message = chatInput.value;
-    if (message.trim() !== '') {
-        const messageElement = document.createElement('div');
-        messageElement.className = 'chat-message';
-        messageElement.textContent = `You: ${message}`;
-        chatMessages.appendChild(messageElement);
-        chatInput.value = '';
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        
-        // Simulate a response from the seller
-        setTimeout(() => {
-            const sellerMessageElement = document.createElement('div');
-            sellerMessageElement.className = 'chat-message';
-            sellerMessageElement.textContent = `Seller: Thank you for your message!`;
-            chatMessages.appendChild(sellerMessageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, 1000);
+function displayOrders() {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const ordersElement = document.getElementById('orders');
+    ordersElement.innerHTML = '';
+
+    if (orders.length === 0) {
+        ordersElement.innerHTML = '<p>You have no orders.</p>';
+    } else {
+        orders.forEach(order => {
+            const orderElement = document.createElement('div');
+            orderElement.className = 'order';
+            orderElement.innerHTML = `
+                <h3>${order.name}</h3>
+                <p>Price: ${order.price}</p>
+                <p>Address: ${order.address}</p>
+                <p>Payment: ${order.payment}</p>
+                <p>Status: ${order.status}</p>
+                <button class="chat-with-farmer" data-name="${order.name}">Chat with Farmer</button>
+            `;
+            ordersElement.appendChild(orderElement);
+        });
+
+        document.querySelectorAll('.chat-with-farmer').forEach(button => {
+            button.addEventListener('click', chatWithFarmer);
+        });
     }
-});
+}
+
+function chatWithFarmer(event) {
+    const productName = event.target.getAttribute('data-name');
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.innerHTML = `
+        <h3>Chat with Farmer about ${productName}</h3>
+        <div id="messages"></div>
+        <input type="text" id="message-input" placeholder="Enter your message">
+        <button id="send-message">Send</button>
+    `;
+    document.getElementById('send-message').addEventListener('click', () => sendMessage(productName));
+}
+
+function sendMessage(productName) {
+    const messageInput = document.getElementById('message-input');
+    const message = messageInput.value;
+    if (message) {
+        const messages = JSON.parse(localStorage.getItem(`messages_${productName}`)) || [];
+        messages.push({ sender: 'User', text: message });
+        localStorage.setItem(`messages_${productName}`, JSON.stringify(messages));
+        displayMessages(productName);
+        messageInput.value = '';
+    }
+}
+
+function displayMessages(productName) {
+    const messages = JSON.parse(localStorage.getItem(`messages_${productName}`)) || [];
+    const messagesElement = document.getElementById('messages');
+    messagesElement.innerHTML = '';
+    messages.forEach(msg => {
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        messageElement.innerHTML = `<strong>${msg.sender}:</strong> ${msg.text}`;
+        messagesElement.appendChild(messageElement);
+    });
+}

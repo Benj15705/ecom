@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const productInfo = document.getElementById('product-info');
     const urlParams = new URLSearchParams(window.location.search);
     const productName = urlParams.get('product');
+    const seller = urlParams.get('seller');
 
-    if (productName) {
-        const loggedInSeller = localStorage.getItem('loggedInSeller');
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
+    if (productName && seller) {
+        const products = JSON.parse(localStorage.getItem(`products_${seller}`)) || [];
 
         const product = products.find(p => p.name === productName);
         if (product) {

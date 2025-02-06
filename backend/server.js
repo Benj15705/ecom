@@ -1,5 +1,3 @@
-// backend/server.js
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -14,11 +12,11 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const PORT = process.env.PORT || 5500;
-const JWT_SECRET = process.env.JWT_SECRET; // Use the JWT secret from environment variables
+const JWT_SECRET = process.env.c5d3c85bc17329ecd20a7f133d59f73e80c690f796bcaabf690d9d41272d9f49; // Use the JWT secret from environment variables
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'https://benj15705.github.io/ecom/', // Replace with your frontend URL
+    origin: 'http://localhost:5500', // Replace with your frontend URL
     credentials: true,
 }));
 
@@ -40,6 +38,18 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+
+// Define Product schema and model
+const productSchema = new mongoose.Schema({
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    name: { type: String, required: true },
+    price: { type: Number, required: true },
+    description: { type: String, required: true },
+    inventory: { type: Number, required: true },
+    imageUrl: { type: String, required: true },
+});
+
+const Product = mongoose.model('Product', productSchema);
 
 // Define Chat schema and model
 const chatSchema = new mongoose.Schema({
@@ -115,11 +125,11 @@ app.post('/owner-overview', async (req, res) => {
             return res.status(400).json({ error: 'Invalid password' });
         }
 
-        // Fetch overview data (this is a placeholder; replace with real data fetching)
+        // Fetch overview data
         const overviewData = {
             totalUsers: await User.countDocuments({ role: 'user' }),
             totalSellers: await User.countDocuments({ role: 'seller' }),
-            totalProducts: 500, // Replace with real product count
+            totalProducts: await Product.countDocuments(),
             totalOrders: 200, // Replace with real order count
         };
 
@@ -142,6 +152,42 @@ app.get('/chat/:sender/:receiver', async (req, res) => {
         }).sort({ timestamp: 1 });
 
         res.json(chatHistory);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Add product route
+app.post('/products', async (req, res) => {
+    const { token, name, price, description, inventory, imageUrl } = req.body;
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const seller = await User.findById(decoded.userId);
+        if (!seller || seller.role !== 'seller') {
+            return res.status(403).json({ error: 'Unauthorized' });
+        }
+
+        const newProduct = new Product({
+            seller: seller._id,
+            name,
+            price,
+            description,
+            inventory,
+            imageUrl,
+        });
+        await newProduct.save();
+        res.status(201).json({ message: 'Product added successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Get products route
+app.get('/products', async (req, res) => {
+    try {
+        const products = await Product.find().populate('seller', 'username');
+        res.json(products);
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
     }

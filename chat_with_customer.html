@@ -4,100 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat with Customer - MarketPlus</title>
-    <link rel="stylesheet" href="chat.css">
-    <style>
-        header {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            background-color: #9ac891;
-            border-bottom: 1px solid #ddd;
-        }
-        .home-button {
-            background-color: #4CAF50; /* Green */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .home-button:hover {
-            background-color: #45a049;
-        }
-        .chat-title {
-            font-size: 1.5em;
-            color: #333;
-        }
-        .seller-select {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .input-container {
-            display: flex;
-            margin-top: 10px;
-        }
-        .input-container input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .input-container button {
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .input-container button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the main CSS file -->
+    <link rel="stylesheet" href="chat.css"> <!-- Link to the chat-specific CSS file -->
 </head>
-<body onload="checkAuthentication()">
-
+<body>
     <header>
-        <a href="seller_homepage.html" class="home-button">Home</a>
-        <div class="chat-title">MarketPlus</div>
-        <select class="seller-select" id="seller-select">
-            <option value="customer1">Customer 1</option>
-            <option value="customer2">Customer 2</option>
-            <option value="customer3">Customer 3</option>
-        </select>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="farmer_homepage.html">Home</a></li>
+                <li><a href="farmer_products.html">Manage Products</a></li>
+                <li><a href="manage_orders.html">Manage Orders</a></li>
+                <li><a href="chat_with_customer.html">Chat with Customer</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section id="chat">
-        <h2>Chat with Customer</h2>
-        <div class="chat-container">
-            <div class="chat-box" id="chat-window">
-                <!-- Chat messages will be dynamically inserted here -->
-            </div>
-            <!-- Wrap the input and button in a form to trigger submit event -->
-            <form id="chat-form">
-                <div class="input-container">
-                    <input type="text" id="chat-input" placeholder="Type a message..." required>
+    <div class="main-container">
+        <main>
+            <section id="chat">
+                <h2>Chat with Customer</h2>
+                <div id="chat-window"></div>
+                <form id="chat-form">
+                    <label for="customer-select">Select Customer:</label>
+                    <select id="customer-select" required>
+                        <option value="" disabled selected>Select a customer</option>
+                    </select>
+                    <input type="text" id="chat-input" placeholder="Enter your message" required>
                     <button type="submit">Send</button>
-                </div>
-            </form>
-        </div>
-    </section>
+                </form>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="chat_with_customer.js"></script>
-    <script>
-        document.getElementById('seller-select').addEventListener('change', function() {
-            const selectedCustomer = this.value;
-            console.log('Selected customer:', selectedCustomer);
-            // Here you can add code to handle the selected customer, e.g., load previous chat history, etc.
-        });
-    </script>
+    <script src="chat_with_customer.js"></script> <!-- Link to the chat with customer JavaScript file -->
 </body>
 </html>

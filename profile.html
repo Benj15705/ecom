@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - MarketPlus</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
-    <style>
-        /* Additional styling for the profile picture */
-        .profile-button img {
-            width: 40px; /* Adjust the size of the profile picture */
-            height: 40px; /* Adjust the size of the profile picture */
-            border-radius: 50%;
-            object-fit: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="profile.css"> <!-- Link to the profile-specific CSS file -->
 </head>
 <body>
     <header>
@@ -73,14 +65,17 @@
             const logoutLink = document.getElementById('logout-link');
 
             const loggedInUser = localStorage.getItem('loggedInUser');
+            const loggedInSeller = localStorage.getItem('loggedInSeller');
             const usernameElement = document.getElementById('username');
             const profileUsername = document.getElementById('profile-username');
             const profilePicture = document.getElementById('profile-picture');
             const profileImg = document.getElementById('profile-img');
 
-            if (loggedInUser) {
-                usernameElement.textContent = loggedInUser;
-                profileUsername.value = loggedInUser;
+            const currentUser = loggedInUser || loggedInSeller;
+
+            if (currentUser) {
+                usernameElement.textContent = currentUser;
+                profileUsername.value = currentUser;
 
                 const storedProfilePic = localStorage.getItem('profilePic');
                 if (storedProfilePic) {
@@ -93,7 +88,11 @@
                     const newProfilePicture = profilePicture.files[0];
 
                     if (newUsername) {
-                        localStorage.setItem('loggedInUser', newUsername);
+                        if (loggedInUser) {
+                            localStorage.setItem('loggedInUser', newUsername);
+                        } else if (loggedInSeller) {
+                            localStorage.setItem('loggedInSeller', newUsername);
+                        }
                         usernameElement.textContent = newUsername;
                         alert('Profile updated successfully!');
                     }
@@ -112,12 +111,14 @@
 
                 logoutButton.addEventListener('click', () => {
                     localStorage.removeItem('loggedInUser');
+                    localStorage.removeItem('loggedInSeller');
                     localStorage.removeItem('profilePic');
                     window.location.href = 'user_login.html'; // Redirect to login page
                 });
 
                 logoutLink.addEventListener('click', () => {
                     localStorage.removeItem('loggedInUser');
+                    localStorage.removeItem('loggedInSeller');
                     localStorage.removeItem('profilePic');
                     window.location.href = 'user_login.html'; // Redirect to login page
                 });

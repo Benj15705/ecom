@@ -5,104 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Profile - MarketPlus</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-        header {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #9ac891; /* Updated header color */
-            border-bottom: 1px solid #ddd;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5em;
-        }
-        .logo-image {
-            width: 40px; /* Adjust the size of the logo image */
-            height: auto;
-            margin-right: 10px;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
-        nav ul li {
-            margin-left: 20px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-        }
-        .home-icon {
-            width: 20px; /* Adjust the size of the icons */
-            height: auto;
-        }
-        main {
-            flex: 1;
-        }
-        footer {
-            background-color: #d2b48c; /* Updated footer color */
-            padding: 10px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-        }
-    </style>
+    <link rel="stylesheet" href="profile.css"> <!-- Link to the profile-specific CSS file -->
 </head>
 <body>
     <header>
-        <h1>
-            <a href="seller_homepage.html" class="logo">
-                <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
-                Homepage
-            </a>
-        </h1>
-        <nav>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
             <ul>
-                <li>
-                    <a href="seller_homepage.html" id="home-button">
-                    </a>
-                </li>
+                <li><a href="seller_homepage.html">Home</a></li>
+                <li><a href="seller_products.html">Manage Products</a></li>
+                <li><a href="chat_with_customer.html">Chat with Customer</a></li>
             </ul>
         </nav>
+        <div class="profile-container">
+            <a href="seller_profile.html" class="profile-button" id="profile-link">
+                <img src="img/profile-pic.jpg" alt="Profile Picture" id="profile-img">
+                <span id="username">Username</span>
+            </a>
+            <div class="profile-dropdown">
+                <a href="profile.html">Edit Profile</a>
+                <a href="#" id="logout-link">Logout</a>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <section id="profile">
-            <h2>Seller Profile</h2>
-            <p>Welcome, <span id="username"></span>!</p>
-            <button id="logout-button">Logout</button>
-        </section>
-    </main>
+    <div class="main-container">
+        <main>
+            <section id="profile">
+                <h2>Your Profile</h2>
+                <form id="profile-form">
+                    <label for="profile-username">Username:</label>
+                    <input type="text" id="profile-username" name="username" required>
+                    
+                    <label for="profile-picture">Profile Picture:</label>
+                    <input type="file" id="profile-picture" name="profile-picture" accept="image/*">
+                    
+                    <button type="submit">Save Changes</button>
+                </form>
+                <button id="logout-button">Logout</button>
+            </section>
+        </main>
+    </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
     <script>
-        // Check if the seller is logged in
         document.addEventListener('DOMContentLoaded', () => {
+            const profileForm = document.getElementById('profile-form');
+            const logoutButton = document.getElementById('logout-button');
+            const profileLink = document.getElementById('profile-link');
+            const profileDropdown = document.querySelector('.profile-dropdown');
+            const logoutLink = document.getElementById('logout-link');
+
             const loggedInSeller = localStorage.getItem('loggedInSeller');
             const usernameElement = document.getElementById('username');
-            const logoutButton = document.getElementById('logout-button');
+            const profileUsername = document.getElementById('profile-username');
+            const profilePicture = document.getElementById('profile-picture');
+            const profileImg = document.getElementById('profile-img');
 
             if (loggedInSeller) {
                 usernameElement.textContent = loggedInSeller;
+                profileUsername.value = loggedInSeller;
+
+                const storedProfilePic = localStorage.getItem('profilePic');
+                if (storedProfilePic) {
+                    profileImg.src = storedProfilePic;
+                }
+
+                profileForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const newUsername = profileUsername.value.trim();
+                    const newProfilePicture = profilePicture.files[0];
+
+                    if (newUsername) {
+                        localStorage.setItem('loggedInSeller', newUsername);
+                        usernameElement.textContent = newUsername;
+                        alert('Profile updated successfully!');
+                    }
+
+                    if (newProfilePicture) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const base64String = e.target.result;
+                            localStorage.setItem('profilePic', base64String);
+                            profileImg.src = base64String;
+                            alert('Profile picture updated successfully!');
+                        };
+                        reader.readAsDataURL(newProfilePicture);
+                    }
+                });
+
                 logoutButton.addEventListener('click', () => {
                     localStorage.removeItem('loggedInSeller');
+                    localStorage.removeItem('profilePic');
                     window.location.href = 'seller_login.html'; // Redirect to login page
+                });
+
+                logoutLink.addEventListener('click', () => {
+                    localStorage.removeItem('loggedInSeller');
+                    localStorage.removeItem('profilePic');
+                    window.location.href = 'seller_login.html'; // Redirect to login page
+                });
+
+                profileLink.addEventListener('mouseover', () => {
+                    profileDropdown.style.display = 'block';
+                });
+
+                profileLink.addEventListener('mouseout', () => {
+                    profileDropdown.style.display = 'none';
+                });
+
+                profileDropdown.addEventListener('mouseover', () => {
+                    profileDropdown.style.display = 'block';
+                });
+
+                profileDropdown.addEventListener('mouseout', () => {
+                    profileDropdown.style.display = 'none';
                 });
             } else {
                 window.location.href = 'seller_login.html'; // Redirect to login page if not logged in

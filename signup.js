@@ -1,5 +1,3 @@
-// signup.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const userSignupForm = document.getElementById('user-signup-form');
     const sellerSignupForm = document.getElementById('seller-signup-form');
@@ -9,12 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('signup-username').value;
         const password = document.getElementById('signup-password').value;
 
-        // Example signup logic
-        if (username && password) {
+        // Store user information in localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const existingUser = users.find(user => user.username === username);
+
+        if (existingUser) {
+            alert('Username already exists. Please choose a different username.');
+        } else {
+            users.push({ username, password, role: 'user' });
+            localStorage.setItem('users', JSON.stringify(users));
             alert('Signup successful! You can now log in.');
             window.location.href = 'user_login.html'; // Redirect to login page
-        } else {
-            alert('Signup failed. Please try again.');
         }
     });
 
@@ -23,12 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('signup-seller-username').value;
         const password = document.getElementById('signup-seller-password').value;
 
-        // Example signup logic
-        if (username && password) {
+        // Store seller information in localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const existingUser = users.find(user => user.username === username);
+
+        if (existingUser) {
+            alert('Username already exists. Please choose a different username.');
+        } else {
+            users.push({ username, password, role: 'seller' });
+            localStorage.setItem('users', JSON.stringify(users));
             alert('Signup successful! You can now log in.');
             window.location.href = 'seller_login.html'; // Redirect to login page
-        } else {
-            alert('Signup failed. Please try again.');
         }
     });
 });

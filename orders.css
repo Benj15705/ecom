@@ -1,0 +1,150 @@
+/* Orders-specific styles */
+#orders {
+    padding: 50px 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 20px auto;
+    max-width: 800px;
+    color: black; /* Change text color to black for better contrast */
+}
+
+#orders h2 {
+    font-size: 1.5em; /* Adjust the font size */
+    margin-bottom: 20px;
+    color: #4CAF50; /* Green */
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.order-item img {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.order-item h3 {
+    margin: 0;
+    flex-grow: 1;
+    color: #4CAF50; /* Green */
+}
+
+.order-item p {
+    margin: 0;
+    margin-right: 10px;
+}
+
+.order-item button {
+    padding: 5px 10px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.order-item button:hover {
+    background-color: #45a049; /* Darker green */
+}
+
+#details-form {
+    margin-top: 20px;
+}
+
+#details-form h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #4CAF50; /* Green */
+}
+
+#details-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4CAF50; /* Green */
+}
+
+#details-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#details-form button {
+    width: 100%;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#details-form button:hover {
+    background-color: #45a049; /* Darker green */
+}
+
+#chat-window {
+    margin-top: 20px;
+}
+
+#chat-window h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #4CAF50; /* Green */
+}
+
+#chat-window #messages {
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#chat-window .message {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #e7f5e7; /* Light green */
+}
+
+#chat-window .message strong {
+    color: #4CAF50; /* Green */
+}
+
+#chat-window input {
+    width: calc(100% - 22px); /* Adjust width to account for padding and border */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#chat-window button {
+    width: 100%;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#chat-window button:hover {
+    background-color: #45a049; /* Darker green */
+}

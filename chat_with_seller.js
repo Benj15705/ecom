@@ -2,58 +2,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatForm = document.getElementById('chat-form');
     const chatInput = document.getElementById('chat-input');
     const chatWindow = document.getElementById('chat-window');
+    const sellerSelect = document.getElementById('seller-select');
 
-    const loggedInSeller = localStorage.getItem('loggedInSeller') || "Seller"; // Default for testing
-    if (!localStorage.getItem('loggedInSeller')) {
-        alert('You must be logged in as a seller to access this page.');
-        window.location.href = 'seller_login.html';
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (!loggedInUser) {
+        alert('You must be logged in as a user to access this page.');
+        window.location.href = 'user_login.html';
         return;
     }
-    console.log('Logged in as: ', loggedInSeller);  // For debugging
 
     chatForm.addEventListener('submit', (event) => {
-        event.preventDefault();  // Prevent form from reloading the page
-
-        sendMessage();
+        event.preventDefault();
+        const message = chatInput.value.trim();
+        if (message) {
+            const selectedSeller = sellerSelect.value;
+            addMessage(loggedInUser, message, selectedSeller);
+            chatInput.value = '';
+            setTimeout(() => sellerReply(selectedSeller), 1000); // Simulate a seller reply after 1 second
+        }
     });
 
-    // Send message function
-    function sendMessage() {
-        let messageText = chatInput.value.trim();
-        if (messageText === "") return;
-
-        addMessage(loggedInSeller, messageText);  // Add the message to the chat window
-
-        chatInput.value = "";  // Clear input field after sending
-
-        setTimeout(() => customerReply(), 1000);  // Simulate customer reply after 1 second
-    }
-
-    // Add a new message to the chat window
-    function addMessage(sender, text) {
+    function addMessage(sender, text, receiver) {
         const messageElement = document.createElement('div');
-        messageElement.classList.add("message", sender === loggedInSeller ? "seller" : "customer");
-
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${text} <span class="timestamp">${getTime()}</span>`;
+        messageElement.className = sender === loggedInUser ? 'chat-message customer' : 'chat-message seller';
+        messageElement.innerHTML = `<strong>${sender}:</strong> ${text} <span class="timestamp">${new Date().toLocaleTimeString()}</span>`;
         chatWindow.appendChild(messageElement);
-        chatWindow.scrollTop = chatWindow.scrollHeight;  // Scroll to the bottom of the chat window
+        chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to bottom
+
+        // Store message in localStorage
+        const chatHistory = JSON.parse(localStorage.getItem(`chat_${receiver}`)) || [];
+        chatHistory.push({ sender, text, timestamp: new Date().toLocaleTimeString() });
+        localStorage.setItem(`chat_${receiver}`, JSON.stringify(chatHistory));
     }
 
-    // Simulate a customer reply
-    function customerReply() {
+    function sellerReply(receiver) {
         const responses = [
-            "I'm interested in your product!",
-            "Can you provide more details?",
-            "How much is the shipping cost?",
-            "Thank you!"
+            "Thank you for your interest!",
+            "Sure, I can provide more details.",
+            "Shipping cost depends on your location.",
+            "You're welcome!"
         ];
         const response = responses[Math.floor(Math.random() * responses.length)];
-        addMessage("Customer", response);
+        addMessage("Seller", response, receiver); // Simulate a seller response
     }
 
-    // Get current time in a readable format
-    function getTime() {
-        let now = new Date();
-        return now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    }
+    // Load initial chat history for the selected seller
+    loadChatHistory(sellerSelect.value);
 });

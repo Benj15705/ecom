@@ -1,28 +1,14 @@
-// seller_products.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const productForm = document.getElementById('product-form');
     const editProductForm = document.getElementById('edit-product-form');
     const productList = document.getElementById('product-list');
-    const loggedInSeller = localStorage.getItem('loggedInSeller');
     let editIndex = null;
 
-    if (!loggedInSeller) {
-        alert('You must be logged in as a seller to manage products.');
-        window.location.href = 'seller_login.html';
+    const loggedInFarmer = localStorage.getItem('loggedInFarmer');
+    if (!loggedInFarmer) {
+        alert('You must be logged in as a farmer to manage products.');
+        window.location.href = 'farmer_login.html';
         return;
-    }
-
-    // Ensure only valid numbers are entered in the inputs
-    document.getElementById('product-price').addEventListener('input', validateNumber);
-    document.getElementById('product-inventory').addEventListener('input', validateNumber);
-    document.getElementById('edit-product-price').addEventListener('input', validateNumber);
-    document.getElementById('edit-product-inventory').addEventListener('input', validateNumber);
-
-    function validateNumber(event) {
-        if (event.target.value < 0) {
-            event.target.value = 0;
-        }
     }
 
     productForm.addEventListener('submit', (event) => {
@@ -34,16 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const inventory = parseInt(document.getElementById('product-inventory').value.trim(), 10);
         const imageFile = document.getElementById('product-image').files[0];
 
-        if (name && price > 0 && price <= 1000 && description && inventory >= 0 && inventory <= 100 && imageFile) {
+        if (name && price > 0 && description && inventory > 0 && imageFile) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 const imageUrl = e.target.result;
-                addProduct(loggedInSeller, name, price, description, inventory, imageUrl);
-                productForm.reset();
+                addProduct(name, price, description, inventory, imageUrl);
             };
             reader.readAsDataURL(imageFile);
         } else {
-            alert('Please enter valid product details. Price should be between 0 and 1000. Inventory should be between 0 and 100.');
+            alert('Please enter valid product details.');
         }
     });
 
@@ -56,42 +41,40 @@ document.addEventListener('DOMContentLoaded', () => {
         const inventory = parseInt(document.getElementById('edit-product-inventory').value.trim(), 10);
         const imageFile = document.getElementById('edit-product-image').files[0];
 
-        if (name && price > 0 && price <= 1000 && description && inventory >= 0 && inventory <= 100) {
+        if (name && price > 0 && description && inventory > 0) {
             if (imageFile) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const imageUrl = e.target.result;
-                    updateProduct(loggedInSeller, editIndex, name, price, description, inventory, imageUrl);
-                    resetEditForm();
+                    updateProduct(editIndex, name, price, description, inventory, imageUrl);
                 };
                 reader.readAsDataURL(imageFile);
             } else {
-                const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
+                const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
                 const product = products[editIndex];
-                updateProduct(loggedInSeller, editIndex, name, price, description, inventory, product.imageUrl);
-                resetEditForm();
+                updateProduct(editIndex, name, price, description, inventory, product.imageUrl);
             }
         } else {
-            alert('Please enter valid product details. Price should be between 0 and 1000. Inventory should be between 0 and 100.');
+            alert('Please enter valid product details.');
         }
     });
 
-    function addProduct(seller, name, price, description, inventory, imageUrl) {
-        const products = JSON.parse(localStorage.getItem(`products_${seller}`)) || [];
+    function addProduct(name, price, description, inventory, imageUrl) {
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
         products.push({ name, price, description, inventory, imageUrl });
-        localStorage.setItem(`products_${seller}`, JSON.stringify(products));
+        localStorage.setItem(`products_${loggedInFarmer}`, JSON.stringify(products));
         displayProducts();
     }
 
-    function updateProduct(seller, index, name, price, description, inventory, imageUrl) {
-        const products = JSON.parse(localStorage.getItem(`products_${seller}`)) || [];
+    function updateProduct(index, name, price, description, inventory, imageUrl) {
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
         products[index] = { name, price, description, inventory, imageUrl };
-        localStorage.setItem(`products_${seller}`, JSON.stringify(products));
+        localStorage.setItem(`products_${loggedInFarmer}`, JSON.stringify(products));
         displayProducts();
     }
 
     function displayProducts() {
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
         productList.innerHTML = '';
         products.forEach((product, index) => {
             const productElement = document.createElement('div');
@@ -124,14 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteProduct(index) {
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
         products.splice(index, 1);
-        localStorage.setItem(`products_${loggedInSeller}`, JSON.stringify(products));
+        localStorage.setItem(`products_${loggedInFarmer}`, JSON.stringify(products));
         displayProducts();
     }
 
     function editProduct(index) {
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
         const product = products[index];
 
         document.getElementById('edit-product-name').value = product.name;
@@ -146,26 +129,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('edit-product-tab-button').click();
     }
 
-    function resetEditForm() {
-        editProductForm.reset();
-        editIndex = null;
-        document.getElementById('edit-product-tab-button').style.display = 'none';
-        document.querySelector('.tab-button').click();
-    }
-
-    // Function to handle tab switching
-    window.openTab = function(evt, tabName) {
-        const tabcontent = document.getElementsByClassName("tab-content");
-        for (let i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        const tabbuttons = document.getElementsByClassName("tab-button");
-        for (let i = 0; i < tabbuttons.length; i++) {
-            tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
-        }
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    };
-
     displayProducts();
 });
+
+function openTab(evt, tabName) {
+    const tabContents = document.getElementsByClassName('tab-content');
+    for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = 'none';
+    }
+
+    const tabButtons = document.getElementsByClassName('tab-button');
+    for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+    }
+
+    document.getElementById(tabName).style.display = 'block';
+    evt.currentTarget.className += ' active';
+}

@@ -1,0 +1,29 @@
+/* About Us Section Styles */
+#about-us {
+    padding: 50px 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 20px auto;
+    max-width: 800px;
+    color: black; /* Change text color to black for better contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+#about-us h2 {
+    font-size: 1.5em; /* Adjust the font size */
+    margin-bottom: 20px;
+    color: #4CAF50; /* Green */
+}
+
+#about-us img.about-logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#about-us p {
+    font-size: 1em;
+    line-height: 1.5;
+}

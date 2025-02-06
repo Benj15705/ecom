@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Homepage - MarketPlus</title>
+    <title>Farmer Homepage - MarketPlus</title>
     <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
     <style>
         /* Additional styling for the product grid */
@@ -33,15 +33,22 @@
         </div>
         <nav class="top-nav">
             <ul>
-                <li><a href="seller_homepage.html">Home</a></li>
-                <li><a href="seller_products.html">Manage Products</a></li>
+                <li><a href="farmer_homepage.html">Home</a></li>
+                <li><a href="farmer_products.html">Manage Products</a></li>
+                <li><a href="manage_orders.html">Manage Orders</a></li>
                 <li><a href="chat_with_customer.html">Chat with Customer</a></li>
             </ul>
         </nav>
-        <a href="seller_profile.html" class="profile-button" id="profile-link">
-            <img src="img/profile-pic.jpg" alt="Profile Picture">
-            <span id="username">Username</span>
-        </a>
+        <div class="profile-container">
+            <a href="farmer_profile.html" class="profile-button" id="profile-link">
+                <img src="img/profile-pic.jpg" alt="Profile Picture" id="profile-img">
+                <span id="username">Username</span>
+            </a>
+            <div class="profile-dropdown">
+                <a href="profile.html">Edit Profile</a>
+                <a href="#" id="logout-link">Logout</a>
+            </div>
+        </div>
     </header>
 
     <div class="main-container">
@@ -50,7 +57,7 @@
                 <div class="hero-content">
                     <h2>Welcome to MarketPlus!</h2>
                     <p>Manage your products and interact with customers.</p>
-                    <a href="seller_products.html" class="cta-button">Manage Products</a>
+                    <a href="farmer_products.html" class="cta-button">Manage Products</a>
                 </div>
             </section>
 
@@ -70,13 +77,13 @@
     <script src="script.js"></script> <!-- Link to the main JavaScript file -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const loggedInSeller = localStorage.getItem('loggedInSeller');
+            const loggedInFarmer = localStorage.getItem('loggedInFarmer');
             const usernameElement = document.getElementById('username');
             const profileImg = document.querySelector('.profile-button img');
             const productGrid = document.getElementById('product-grid');
 
-            if (loggedInSeller) {
-                usernameElement.textContent = loggedInSeller;
+            if (loggedInFarmer) {
+                usernameElement.textContent = loggedInFarmer;
 
                 // Load profile picture from localStorage if available
                 const storedProfilePic = localStorage.getItem('profilePic');
@@ -92,7 +99,7 @@
             }
 
             function displayProducts() {
-                const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
+                const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
                 productGrid.innerHTML = '';
                 products.forEach((product, index) => {
                     const productElement = document.createElement('div');

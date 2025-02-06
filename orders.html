@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders - MarketPlus</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the main CSS file -->
+    <link rel="stylesheet" href="orders.css"> <!-- Link to the orders-specific CSS file -->
 </head>
 <body>
     <header>
@@ -16,8 +17,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="products.html">Products</a></li>
-                <li><a href="profile.html" id="profile-link">Profile</a></li>
-                <li><a href="orders.html">Orders (<span id="order-count">0</span>)</a></li>
+                <li><a href="orders.html">Orders</a></li>
                 <li><a href="chat_with_seller.html">Chat with Seller</a></li>
             </ul>
         </nav>
@@ -27,32 +27,20 @@
         <main>
             <section id="orders">
                 <h2>Your Orders</h2>
-                <div class="order-item">
-                    <img src="img/product1.jpg" alt="Product 1">
-                    <h3>Product 1</h3>
-                    <p>$19.99</p>
-                    <button>View Details</button>
-                </div>
-                <div class="order-item">
-                    <img src="img/product2.jpg" alt="Product 2">
-                    <h3>Product 2</h3>
-                    <p>$29.99</p>
-                    <button>View Details</button>
-                </div>
-                <div class="order-item">
-                    <img src="img/product3.jpg" alt="Product 3">
-                    <h3>Product 3</h3>
-                    <p>$39.99</p>
-                    <button>View Details</button>
-                </div>
+                <div id="order-items"></div>
+                <div id="details-form"></div>
+                <button id="view-orders">View My Orders</button>
+                <div id="orders"></div>
+                <div id="chat-window"></div>
             </section>
         </main>
     </div>
 
     <footer>
         <p>&copy; 2025 MarketPlus</p>
+        <a href="about.html" class="about-link">About Us</a>
     </footer>
 
-    <script src="script.js"></script> <!-- Link to the main JavaScript file -->
+    <script src="orders.js"></script> <!-- Link to the orders JavaScript file -->
 </body>
 </html>

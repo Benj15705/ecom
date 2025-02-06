@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders - MarketPlus</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the main CSS file -->
+    <link rel="stylesheet" href="manage_orders.css"> <!-- Link to the manage orders-specific CSS file -->
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="MarketPlus Logo" class="logo-image">
+            <h1>MarketPlus</h1>
+        </div>
+        <nav class="top-nav">
+            <ul>
+                <li><a href="seller_homepage.html">Home</a></li>
+                <li><a href="seller_products.html">Manage Products</a></li>
+                <li><a href="manage_orders.html">Manage Orders</a></li>
+                <li><a href="chat_with_customer.html">Chat with Customer</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <main>
+            <section id="manage-orders">
+                <h2>Manage Orders</h2>
+                <div id="pending-orders">
+                    <h3>Pending Orders</h3>
+                    <div id="pending-orders-list"></div>
+                </div>
+                <div id="completed-orders">
+                    <h3>Completed Orders</h3>
+                    <div id="completed-orders-list"></div>
+                </div>
+                <div id="order-details-form"></div>
+                <div id="chat-window"></div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 MarketPlus</p>
+    </footer>
+
+    <script src="manage_orders.js"></script> <!-- Link to the manage orders JavaScript file -->
+</body>
+</html>
