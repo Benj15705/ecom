@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatWindow = document.getElementById('chat-window');
     const customerSelect = document.getElementById('customer-select');
 
-    const loggedInFarmer = localStorage.getItem('loggedInFarmer');
-    if (!loggedInFarmer) {
-        alert('You must be logged in as a farmer to access this page.');
-        window.location.href = 'farmer_login.html';
+    const loggedInSeller = localStorage.getItem('loggedInSeller');
+    if (!loggedInSeller) {
+        alert('You must be logged in as a seller to access this page.');
+        window.location.href = 'seller_login.html';
         return;
     }
 
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const message = chatInput.value.trim();
         if (message) {
             const selectedCustomer = customerSelect.value;
-            addMessage(loggedInFarmer, message, selectedCustomer);
+            addMessage(loggedInSeller, message, selectedCustomer);
             chatInput.value = '';
             setTimeout(() => customerReply(selectedCustomer), 1000); // Simulate a customer reply after 1 second
         }
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Can I change my order?"
         ];
         const randomReply = replies[Math.floor(Math.random() * replies.length)];
-        addMessage(customer, randomReply, loggedInFarmer);
+        addMessage(customer, randomReply, loggedInSeller);
     }
 
     // Populate customer select dropdown with customers who have placed orders

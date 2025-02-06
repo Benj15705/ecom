@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const productList = document.getElementById('product-list');
     let editIndex = null;
 
-    const loggedInFarmer = localStorage.getItem('loggedInFarmer');
-    if (!loggedInFarmer) {
-        alert('You must be logged in as a farmer to manage products.');
-        window.location.href = 'farmer_login.html';
+    const loggedInSeller = localStorage.getItem('loggedInSeller');
+    if (!loggedInSeller) {
+        alert('You must be logged in as a seller to manage products.');
+        window.location.href = 'seller_login.html';
         return;
     }
 
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 reader.readAsDataURL(imageFile);
             } else {
-                const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
+                const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
                 const product = products[editIndex];
                 updateProduct(editIndex, name, price, description, inventory, product.imageUrl);
             }
@@ -60,21 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function addProduct(name, price, description, inventory, imageUrl) {
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
         products.push({ name, price, description, inventory, imageUrl });
-        localStorage.setItem(`products_${loggedInFarmer}`, JSON.stringify(products));
+        localStorage.setItem(`products_${loggedInSeller}`, JSON.stringify(products));
         displayProducts();
     }
 
     function updateProduct(index, name, price, description, inventory, imageUrl) {
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
         products[index] = { name, price, description, inventory, imageUrl };
-        localStorage.setItem(`products_${loggedInFarmer}`, JSON.stringify(products));
+        localStorage.setItem(`products_${loggedInSeller}`, JSON.stringify(products));
         displayProducts();
     }
 
     function displayProducts() {
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
         productList.innerHTML = '';
         products.forEach((product, index) => {
             const productElement = document.createElement('div');
@@ -107,14 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function deleteProduct(index) {
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
         products.splice(index, 1);
-        localStorage.setItem(`products_${loggedInFarmer}`, JSON.stringify(products));
+        localStorage.setItem(`products_${loggedInSeller}`, JSON.stringify(products));
         displayProducts();
     }
 
     function editProduct(index) {
-        const products = JSON.parse(localStorage.getItem(`products_${loggedInFarmer}`)) || [];
+        const products = JSON.parse(localStorage.getItem(`products_${loggedInSeller}`)) || [];
         const product = products[index];
 
         document.getElementById('edit-product-name').value = product.name;
